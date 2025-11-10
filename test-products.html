@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار تحميل المنتجات</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 30px;
+        }
+        .status {
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        pre {
+            background: #f3f4f6;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            direction: ltr;
+            text-align: left;
+        }
+        .product-item {
+            padding: 15px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📦 اختبار تحميل المنتجات</h1>
+        
+        <div id="status" class="status info">
+            ⏳ جاري تحميل products.json...
+        </div>
+
+        <div id="results"></div>
+    </div>
+
+    <script>
+        async function testLoadProducts() {
+            const statusDiv = document.getElementById('status');
+            const resultsDiv = document.getElementById('results');
+            
+            try {
+                console.log('🔄 Starting fetch test...');
+                
+                // Test 1: Fetch the file
+                const response = await fetch('products.json');
+                console.log('✅ Fetch response:', response);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                // Test 2: Parse JSON
+                const products = await response.json();
+                console.log('✅ Products loaded:', products.length);
+                
+                // Test 3: Display results
+                statusDiv.className = 'status success';
+                statusDiv.innerHTML = `✅ تم تحميل ${products.length} منتج بنجاح!`;
+                
+                // Show first 5 products
+                resultsDiv.innerHTML = `
+                    <h3>⭐ أول 5 منتجات:</h3>
+                    ${products.slice(0, 5).map(p => `
+                        <div class="product-item">
+                            <strong>ID:</strong> ${p.id}<br>
+                            <strong>الاسم:</strong> ${p.title}<br>
+                            <strong>السعر:</strong> ${p.sale_price} ج.م<br>
+                            <strong>الصورة:</strong> <img src="${p.image_link}" style="max-width: 100px; margin-top: 10px;">
+                        </div>
+                    `).join('')}
+                    
+                    <h3>📊 إحصائيات:</h3>
+                    <pre>${JSON.stringify({
+                        total: products.length,
+                        sample: products[0]
+                    }, null, 2)}</pre>
+                `;
+                
+            } catch (error) {
+                console.error('❌ Error:', error);
+                statusDiv.className = 'status error';
+                statusDiv.innerHTML = `❌ خطأ: ${error.message}`;
+                
+                resultsDiv.innerHTML = `
+                    <h3>🔍 تفاصيل الخطأ:</h3>
+                    <pre>${error.stack || error.message}</pre>
+                    
+                    <h3>🛠️ حلول مقترحة:</h3>
+                    <ul>
+                        <li>تأكد من وجود ملف products.json في نفس المجلد</li>
+                        <li>اضغط Ctrl+Shift+R لمسح الكاش</li>
+                        <li>افتح Network tab في المتصفح (F12) وابحث عن products.json</li>
+                    </ul>
+                `;
+            }
+        }
+        
+        // Run test when page loads
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', testLoadProducts);
+        } else {
+            testLoadProducts();
+        }
+    </script>
+</body>
+</html>

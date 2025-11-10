@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إتمام الطلب | سوق مصر</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">🛒 سوق مصر</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container" style="margin:40px auto;max-width:600px;">
+        <h1 style="text-align:center;">إتمام الطلب</h1>
+        <form id="checkoutForm" style="margin-top:30px;">
+            <div style="margin-bottom:20px;">
+                <label>الاسم:</label>
+                <input type="text" id="name" required style="width:100%;padding:10px;border:1px solid #ddd;border-radius:5px;">
+            </div>
+            <div style="margin-bottom:20px;">
+                <label>الهاتف:</label>
+                <input type="tel" id="phone" required style="width:100%;padding:10px;border:1px solid #ddd;border-radius:5px;">
+            </div>
+            <div style="margin-bottom:20px;">
+                <label>العنوان:</label>
+                <textarea id="address" required style="width:100%;padding:10px;border:1px solid #ddd;border-radius:5px;" rows="3"></textarea>
+            </div>
+            <button type="submit" class="cta-button" style="width:100%;">تأكيد الطلب</button>
+        </form>
+    </div>
+
+    <script src="cart.js"></script>
+    <script>
+        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const msg = \`طلب جديد:\nالاسم: \${name}\nالهاتف: \${phone}\nالعنوان: \${address}\`;
+            window.open('https://wa.me/201110760081?text=' + encodeURIComponent(msg), '_blank');
+        });
+    </script>
+</body>
+</html>
