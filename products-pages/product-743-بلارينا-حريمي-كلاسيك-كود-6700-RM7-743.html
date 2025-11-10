@@ -425,10 +425,10 @@
                 </div>
 
                 <div class="action-buttons">
-                    <button class="btn btn-cart" onclick="addToCart(743, 'بلارينا حريمي كلاسيك كود 6700 ( RM7 )', 719, 'https://aff.rimonda.com/uploads/products_images/512/skATO3YfSE9DfLAKvGld9FoDGY0ut08d8HKZdjZH.jpg')">
+                    <button class="btn btn-cart" onclick="addToCart()">
                         🛒 أضف للسلة
                     </button>
-                    <a href="https://wa.me/201110760081?text=مرحباً،%20أريد%20طلب%20المنتج%20التالي:%0A%0A📦%20*بلارينا%20حريمي%20كلاسيك%20كود%206700%20(%20RM7%20)*%0A💰%20السعر:%20719%20جنيه%0A🆔%20كود%20المنتج:%20743%0A%0Aمن%20فضلك%20أريد%20إتمام%20الطلب." target="_blank" class="btn btn-whatsapp">
+                    <a href="https://wa.me/201110760081?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%2A%D8%B3%D9%88%D9%82%20%D9%85%D8%B5%D8%B1%2A%20%F0%9F%91%8B%0A%0A%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%B7%D9%84%D8%A8%20%D9%87%D8%B0%D8%A7%20%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%3A%0A%0A%F0%9F%93%A6%20%2A%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%3A%2A%20%D8%A8%D9%84%D8%A7%D8%B1%D9%8A%D9%86%D8%A7%20%D8%AD%D8%B1%D9%8A%D9%85%D9%8A%20%D9%83%D9%84%D8%A7%D8%B3%D9%8A%D9%83%20%D9%83%D9%88%D8%AF%206700%20%28%20RM7%20%29%0A%F0%9F%92%B0%20%2A%D8%A7%D9%84%D8%B3%D8%B9%D8%B1%3A%2A%20719%20%D8%AC%D9%86%D9%8A%D9%87%0A%F0%9F%86%94%20%2A%D8%A7%D9%84%D9%83%D9%88%D8%AF%3A%2A%20743%0A%0A%2A%D8%A8%D9%8A%D8%A7%D9%86%D8%A7%D8%AA%20%D8%A7%D9%84%D8%B9%D9%85%D9%8A%D9%84%3A%2A%0A%F0%9F%91%A4%20%D8%A7%D9%84%D8%A7%D8%B3%D9%85%3A%20%0A%F0%9F%93%B1%20%D8%A7%D9%84%D9%87%D8%A7%D8%AA%D9%81%3A%20%0A%F0%9F%93%8D%20%D8%A7%D9%84%D8%B9%D9%86%D9%88%D8%A7%D9%86%3A%20%0A%F0%9F%8F%99%EF%B8%8F%20%D8%A7%D9%84%D9%85%D8%AD%D8%A7%D9%81%D8%B8%D8%A9%3A%20%0A%0A%D8%B4%D9%83%D8%B1%D8%A7%D9%8B%20%D9%84%D9%83%D9%85" target="_blank" class="btn btn-whatsapp">
                         💬 اطلب عبر واتساب
                     </a>
                 </div>
@@ -488,31 +488,49 @@
     </div>
 
     <script>
-        function addToCart(id, title, price, image) {
-            // جلب السلة من localStorage
-            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-            
-            // البحث عن المنتج في السلة
-            const existingItem = cart.find(item => item.id === id);
-            
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({
-                    id: id,
-                    title: title,
-                    price: price,
-                    image: image,
-                    quantity: 1
-                });
-            }
-            
-            // حفظ السلة
-            localStorage.setItem('cart', JSON.stringify(cart));
-            
-            // إظهار رسالة وتحويل للسلة
-            if (confirm('تمت إضافة المنتج للسلة! \n\nهل تريد الذهاب للسلة الآن؟')) {
-                window.location.href = '../cart.html';
+        const productData = {
+            id: 743,
+            title: "بلارينا حريمي كلاسيك كود 6700 ( RM7 )",
+            price: 719,
+            image: "https://aff.rimonda.com/uploads/products_images/512/skATO3YfSE9DfLAKvGld9FoDGY0ut08d8HKZdjZH.jpg"
+        };
+
+        function addToCart() {
+            try {
+                // جلب السلة الحالية
+                let cart = localStorage.getItem('sooqMasrCart');
+                cart = cart ? JSON.parse(cart) : [];
+                
+                console.log('السلة الحالية:', cart);
+                
+                // البحث عن المنتج
+                const existingIndex = cart.findIndex(item => item.id === productData.id);
+                
+                if (existingIndex > -1) {
+                    cart[existingIndex].quantity += 1;
+                    console.log('زيادة الكمية للمنتج الموجود');
+                } else {
+                    cart.push({
+                        id: productData.id,
+                        title: productData.title,
+                        price: productData.price,
+                        image: productData.image,
+                        quantity: 1
+                    });
+                    console.log('إضافة منتج جديد');
+                }
+                
+                // حفظ السلة
+                localStorage.setItem('sooqMasrCart', JSON.stringify(cart));
+                console.log('السلة بعد الحفظ:', cart);
+                
+                // تأكيد وتحويل
+                if (confirm('✅ تمت إضافة المنتج للسلة!\n\nهل تريد الذهاب للسلة الآن؟')) {
+                    window.location.href = '../cart.html';
+                }
+            } catch (error) {
+                console.error('خطأ:', error);
+                alert('حدث خطأ في إضافة المنتج. حاول مرة أخرى.');
             }
         }
     </script>

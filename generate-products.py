@@ -1,6 +1,7 @@
 import json
 import re
 from pathlib import Path
+from urllib.parse import quote
 
 def load_products():
     with open('products.json', 'r', encoding='utf-8') as f:
@@ -440,16 +441,25 @@ def generate_product_page(product):
     discount = int((1 - product['sale_price'] / product['price']) * 100)
     save_amount = product['price'] - product['sale_price']
     
-    # رسالة واتساب
-    whatsapp_message = f'''مرحباً، أريد طلب المنتج التالي:
+    # رسالة واتساب محسّنة
+    product_title_clean = product['title'].replace('"', '').replace('\t', '')
+    whatsapp_text = f"""مرحباً *سوق مصر* 👋
 
-📦 *{product['title']}*
-💰 السعر: {product['sale_price']} جنيه
-🆔 كود المنتج: {product['id']}
+أريد طلب هذا المنتج:
 
-من فضلك أريد إتمام الطلب.'''
+📦 *المنتج:* {product_title_clean}
+💰 *السعر:* {product['sale_price']} جنيه
+🆔 *الكود:* {product['id']}
+
+*بيانات العميل:*
+👤 الاسم: 
+📱 الهاتف: 
+📍 العنوان: 
+🏙️ المحافظة: 
+
+شكراً لكم"""
     
-    whatsapp_link = f"https://wa.me/201110760081?text={whatsapp_message.replace(' ', '%20').replace('\n', '%0A')}"
+    whatsapp_link = f"https://wa.me/201110760081?text={quote(whatsapp_text)}"
     
     html = f'''<!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -514,7 +524,7 @@ def generate_product_page(product):
                 </div>
 
                 <div class="action-buttons">
-                    <button class="btn btn-cart" onclick="addToCart({product['id']}, '{product['title']}', {product['sale_price']}, '{product['image_link']}')">
+                    <button class="btn btn-cart" onclick="addToCart()">
                         🛒 أضف للسلة
                     </button>
                     <a href="{whatsapp_link}" target="_blank" class="btn btn-whatsapp">
@@ -537,31 +547,49 @@ def generate_product_page(product):
     </div>
 
     <script>
-        function addToCart(id, title, price, image) {{
-            // جلب السلة من localStorage
-            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-            
-            // البحث عن المنتج في السلة
-            const existingItem = cart.find(item => item.id === id);
-            
-            if (existingItem) {{
-                existingItem.quantity += 1;
-            }} else {{
-                cart.push({{
-                    id: id,
-                    title: title,
-                    price: price,
-                    image: image,
-                    quantity: 1
-                }});
-            }}
-            
-            // حفظ السلة
-            localStorage.setItem('cart', JSON.stringify(cart));
-            
-            // إظهار رسالة وتحويل للسلة
-            if (confirm('تمت إضافة المنتج للسلة! \\n\\nهل تريد الذهاب للسلة الآن؟')) {{
-                window.location.href = '../cart.html';
+        const productData = {{
+            id: {product['id']},
+            title: "{product_title_clean}",
+            price: {product['sale_price']},
+            image: "{product['image_link']}"
+        }};
+
+        function addToCart() {{
+            try {{
+                // جلب السلة الحالية
+                let cart = localStorage.getItem('sooqMasrCart');
+                cart = cart ? JSON.parse(cart) : [];
+                
+                console.log('السلة الحالية:', cart);
+                
+                // البحث عن المنتج
+                const existingIndex = cart.findIndex(item => item.id === productData.id);
+                
+                if (existingIndex > -1) {{
+                    cart[existingIndex].quantity += 1;
+                    console.log('زيادة الكمية للمنتج الموجود');
+                }} else {{
+                    cart.push({{
+                        id: productData.id,
+                        title: productData.title,
+                        price: productData.price,
+                        image: productData.image,
+                        quantity: 1
+                    }});
+                    console.log('إضافة منتج جديد');
+                }}
+                
+                // حفظ السلة
+                localStorage.setItem('sooqMasrCart', JSON.stringify(cart));
+                console.log('السلة بعد الحفظ:', cart);
+                
+                // تأكيد وتحويل
+                if (confirm('✅ تمت إضافة المنتج للسلة!\\n\\nهل تريد الذهاب للسلة الآن؟')) {{
+                    window.location.href = '../cart.html';
+                }}
+            }} catch (error) {{
+                console.error('خطأ:', error);
+                alert('حدث خطأ في إضافة المنتج. حاول مرة أخرى.');
             }}
         }}
     </script>
