@@ -54,11 +54,7 @@ body {font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-
 .shipping-info {background:linear-gradient(135deg,#e0c3fc 0%,#8ec5fc 100%);padding:25px;border-radius:15px;margin:25px 0;}
 .shipping-item {display:flex;align-items:center;gap:15px;padding:10px 0;}
 .shipping-icon {font-size:1.8em;}
-.action-buttons {display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:30px 0;}
-.btn {padding:18px;border:none;border-radius:12px;font-size:1.2em;font-weight:bold;cursor:pointer;transition:all 0.3s;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:10px;}
-.btn-cart {background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;box-shadow:0 10px 25px rgba(102,126,234,0.4);}
-.btn-cart:hover {transform:translateY(-2px);box-shadow:0 15px 35px rgba(102,126,234,0.5);}
-.btn-whatsapp {background:linear-gradient(135deg,#25D366 0%,#128C7E 100%);color:white;box-shadow:0 10px 25px rgba(37,211,102,0.4);}
+.btn-whatsapp {width:100%;padding:20px;border:none;border-radius:12px;font-size:1.3em;font-weight:bold;cursor:pointer;transition:all 0.3s;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#25D366 0%,#128C7E 100%);color:white;box-shadow:0 10px 25px rgba(37,211,102,0.4);margin:30px 0;}
 .btn-whatsapp:hover {transform:translateY(-2px);box-shadow:0 15px 35px rgba(37,211,102,0.5);}
 .reviews-section {padding:40px;background:#f8f9fa;}
 .section-title {font-size:2em;color:#2d3436;margin-bottom:30px;text-align:center;}
@@ -76,7 +72,7 @@ body {font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-
 .review-rating .stars {font-size:1.2em;}
 .verified {color:#00b894;font-size:0.85em;display:block;margin-top:5px;}
 .review-comment {color:#2d3436;line-height:1.6;font-size:1.05em;}
-@media (max-width:768px) {.product-main {padding:20px;}.action-buttons {grid-template-columns:1fr;}.product-title {font-size:1.5em;}.current-price {font-size:2em;}}
+@media (max-width:768px) {.product-main {padding:20px;}.product-title {font-size:1.5em;}.current-price {font-size:2em;}}
 </style>'''
 
 def generate_product_page(product):
@@ -126,15 +122,11 @@ def generate_product_page(product):
 <div class="price-section"><div class="price-row"><span class="current-price">{product['sale_price']} جنيه</span><span class="old-price">{product['price']} جنيه</span><span class="save-amount">وفر {save_amount} جنيه</span></div></div>
 <div class="description"><h3>📝 وصف المنتج</h3><p>{product['description']}</p></div>
 <div class="shipping-info"><div class="shipping-item"><span class="shipping-icon">🚚</span><div><strong>{product['shipping_description']}</strong><p>{product['delivery_time']}</p></div></div></div>
-<div class="action-buttons"><button class="btn btn-cart" onclick="addToCart()">🛒 أضف للسلة</button><a href="{whatsapp_link}" target="_blank" class="btn btn-whatsapp">💬 اطلب عبر واتساب</a></div>
+<a href="{whatsapp_link}" target="_blank" class="btn-whatsapp">💬 اطلب الآن عبر واتساب</a>
 </div>
 </div>
 <div class="reviews-section"><h2 class="section-title">⭐ آراء العملاء</h2><div class="rating-summary"><h3 style="margin-bottom:20px;">توزيع التقييمات</h3>{rating_bars}</div>{reviews_html}</div>
 </div>
-<script>
-const pd={{id:{product['id']},title:"{product_title_clean}",price:{product['sale_price']},image:"{product['image_link']}"}};
-function addToCart(){{try{{let c=localStorage.getItem('sooqMasrCart');c=c?JSON.parse(c):[];const i=c.findIndex(x=>x.id===pd.id);if(i>-1)c[i].quantity+=1;else c.push({{...pd,quantity:1}});localStorage.setItem('sooqMasrCart',JSON.stringify(c));if(confirm('✅ تمت إضافة المنتج للسلة!\\n\\nهل تريد الذهاب للسلة الآن?'))window.location.href='../cart.html';}}catch(e){{alert('حدث خطأ');}}}}
-</script>
 </body>
 </html>'''
 
