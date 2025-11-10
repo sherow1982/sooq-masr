@@ -3,323 +3,424 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{PRODUCT_NAME}} - سوق مصر</title>
+    <title>{{PRODUCT_TITLE}} - سوق مصر</title>
     <meta name="description" content="{{PRODUCT_DESCRIPTION}}">
-    <meta name="keywords" content="{{PRODUCT_NAME}}, {{PRODUCT_CATEGORY}}, سوق مصر, تسوق أونلاين">
-    <link rel="canonical" href="https://sooq-masr.arabsad.com/products-pages/{{PRODUCT_SLUG}}.html">
     <link rel="stylesheet" href="../styles.css">
-    
-    <!-- Open Graph Tags -->
-    <meta property="og:title" content="{{PRODUCT_NAME}} - سوق مصر">
-    <meta property="og:description" content="{{PRODUCT_DESCRIPTION}}">
-    <meta property="og:image" content="{{PRODUCT_IMAGE}}">
-    <meta property="og:type" content="product">
-    <meta property="og:url" content="https://sooq-masr.arabsad.com/products-pages/{{PRODUCT_SLUG}}.html">
-    <meta property="product:price:amount" content="{{PRODUCT_PRICE}}">
-    <meta property="product:price:currency" content="EGP">
-    
-    <!-- Twitter Cards -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{PRODUCT_NAME}} - سوق مصر">
-    <meta name="twitter:description" content="{{PRODUCT_DESCRIPTION}}">
-    <meta name="twitter:image" content="{{PRODUCT_IMAGE}}">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛒</text></svg>">
-    
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org/",
-        "@type": "Product",
-        "name": "{{PRODUCT_NAME}}",
-        "image": "{{PRODUCT_IMAGE}}",
-        "description": "{{PRODUCT_DESCRIPTION}}",
-        "sku": "{{PRODUCT_ID}}",
-        "brand": {
-            "@type": "Brand",
-            "name": "سوق مصر"
-        },
-        "offers": {
-            "@type": "Offer",
-            "url": "https://sooq-masr.arabsad.com/products-pages/{{PRODUCT_SLUG}}.html",
-            "priceCurrency": "EGP",
-            "price": "{{PRODUCT_PRICE}}",
-            "availability": "https://schema.org/InStock",
-            "seller": {
-                "@type": "Organization",
-                "name": "سوق مصر"
-            }
-        },
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "{{PRODUCT_RATING}}",
-            "reviewCount": "{{REVIEW_COUNT}}"
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-    }
-    </script>
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .product-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.3);
+            overflow: hidden;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .product-header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .rating-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .stars {
+            color: #fbbf24;
+            font-size: 1.8rem;
+            letter-spacing: 3px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .rating-text {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .product-main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 40px;
+        }
+
+        .product-image-section {
+            position: relative;
+        }
+
+        .discount-badge-img {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 8px 20px rgba(255,107,107,0.4);
+            z-index: 10;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .product-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            transition: transform 0.4s ease;
+        }
+
+        .product-image:hover {
+            transform: scale(1.05);
+        }
+
+        .product-details {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .price-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 30px;
+            border-radius: 20px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(245,87,108,0.3);
+        }
+
+        .price-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .current-price {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .original-price {
+            font-size: 1.5rem;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        .discount-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.3);
+            padding: 8px 20px;
+            border-radius: 50px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .info-card {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 15px;
+            border-right: 5px solid #667eea;
+        }
+
+        .info-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .info-card p {
+            color: #475569;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 18px 35px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 10px 25px rgba(102,126,234,0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(102,126,234,0.6);
+        }
+
+        .btn-cart {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            box-shadow: 0 10px 25px rgba(245,87,108,0.4);
+        }
+
+        .btn-cart:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(245,87,108,0.6);
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            box-shadow: 0 10px 25px rgba(37,211,102,0.4);
+        }
+
+        .btn-whatsapp:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(37,211,102,0.6);
+        }
+
+        .reviews-section {
+            padding: 40px;
+            background: #f8fafc;
+        }
+
+        .reviews-section h2 {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .review-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .reviewer-name {
+            font-weight: bold;
+            color: #1e293b;
+            font-size: 1.1rem;
+        }
+
+        .review-date {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .review-text {
+            color: #475569;
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin: 20px;
+            padding: 12px 30px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .product-main {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+
+            .product-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .current-price {
+                font-size: 2rem;
+            }
+
+            .product-image {
+                height: 350px;
+            }
+
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Header & Navigation -->
-    <header>
-        <nav class="navbar">
-            <div class="container">
-                <a href="../index.html" class="logo">🛒 سوق مصر</a>
-                <div class="nav-links">
-                    <a href="../index.html">الرئيسية</a>
-                    <a href="../index.html#products">المنتجات</a>
-                    <a href="../contact.html">اتصل بنا</a>
-                    <a href="../cart.html" style="position: relative;">
-                        السلة
-                        <span class="cart-badge" id="cartBadge">0</span>
+    <a href="../index.html" class="back-button">← العودة للرئيسية</a>
+
+    <div class="product-container">
+        <div class="product-header">
+            <h1>{{PRODUCT_TITLE}}</h1>
+            <div class="rating-container">
+                <div class="stars">{{STARS}}</div>
+                <span class="rating-text">({{REVIEWS_COUNT}} تقييم)</span>
+            </div>
+        </div>
+
+        <div class="product-main">
+            <div class="product-image-section">
+                {{DISCOUNT_BADGE}}
+                <img src="{{PRODUCT_IMAGE}}" alt="{{PRODUCT_TITLE}}" class="product-image">
+            </div>
+
+            <div class="product-details">
+                <div class="price-section">
+                    <div class="price-label">السعر الخاص</div>
+                    <div class="current-price">{{SALE_PRICE}} جنيه</div>
+                    {{ORIGINAL_PRICE}}
+                    {{DISCOUNT_PERCENT}}
+                </div>
+
+                <div class="info-card">
+                    <h3>📦 معلومات الشحن</h3>
+                    <p>{{SHIPPING_COST}}</p>
+                    <p>{{DELIVERY_TIME}}</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>✨ وصف المنتج</h3>
+                    <p>{{PRODUCT_DESCRIPTION}}</p>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-cart" onclick="addToCart()">
+                        🛒 أضف للسلة
+                    </button>
+                    <a href="../cart.html" class="btn btn-primary">
+                        🛍️ اذهب للسلة
                     </a>
+                    <button class="btn btn-whatsapp" onclick="orderWhatsApp()">
+                        📱 اطلب عبر واتساب
+                    </button>
                 </div>
             </div>
-        </nav>
-    </header>
+        </div>
 
-    <!-- Breadcrumb -->
-    <div class="container" style="padding: 20px;">
-        <nav style="font-size: 14px; color: var(--text-gray);">
-            <a href="../index.html" style="color: var(--primary-color);">الرئيسية</a>
-            <span style="margin: 0 8px;">/</span>
-            <a href="../index.html#products" style="color: var(--primary-color);">المنتجات</a>
-            <span style="margin: 0 8px;">/</span>
-            <span>{{PRODUCT_NAME}}</span>
-        </nav>
+        <div class="reviews-section">
+            <h2>⭐ آراء العملاء</h2>
+            <div class="reviews-grid">
+                {{REVIEWS_SECTION}}
+            </div>
+        </div>
     </div>
 
-    <!-- Product Details -->
-    <main class="container" style="padding: 20px;">
-        <div style="display: grid; grid-template-columns: 1fr 1.2fr 400px; gap: 30px; margin-bottom: 60px;">
-            
-            <!-- Product Image -->
-            <div>
-                <div style="position: sticky; top: 90px;">
-                    <img src="{{PRODUCT_IMAGE}}" alt="{{PRODUCT_NAME}}" 
-                         style="width: 100%; border-radius: 12px; box-shadow: var(--shadow);" 
-                         onerror="this.src='https://via.placeholder.com/500x500?text=صورة+غير+متوفرة'">
-                </div>
-            </div>
-
-            <!-- Product Info -->
-            <div>
-                <div class="product-category" style="font-size: 14px; color: var(--text-gray); text-transform: uppercase; margin-bottom: 12px; font-weight: 600;">{{PRODUCT_CATEGORY}}</div>
-                
-                <h1 style="font-size: 32px; font-weight: 700; margin-bottom: 16px; line-height: 1.3;">{{PRODUCT_NAME}}</h1>
-                
-                <!-- Rating -->
-                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
-                    <div style="color: #FFA500; font-size: 18px;">{{PRODUCT_STARS}}</div>
-                    <span style="color: var(--text-gray); font-size: 14px;">({{REVIEW_COUNT}} تقييم)</span>
-                    <span style="color: var(--success-green); font-size: 14px; font-weight: 600;">✅ متوفر في المخزن</span>
-                </div>
-
-                <!-- Description -->
-                <div style="margin-bottom: 30px;">
-                    <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">وصف المنتج</h2>
-                    <p style="color: var(--text-gray); font-size: 16px; line-height: 1.8;">{{PRODUCT_DESCRIPTION}}</p>
-                </div>
-
-                <!-- Features -->
-                <div style="background: var(--bg-light); padding: 20px; border-radius: 12px; margin-bottom: 30px;">
-                    <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 16px;">✨ مميزات المنتج</h3>
-                    <ul style="display: flex; flex-direction: column; gap: 12px;">
-                        <li style="display: flex; align-items: center; gap: 10px; font-size: 15px;">
-                            <span style="color: var(--success-green); font-size: 18px;">✅</span>
-                            <span>منتج أصلي 100%</span>
-                        </li>
-                        <li style="display: flex; align-items: center; gap: 10px; font-size: 15px;">
-                            <span style="color: var(--success-green); font-size: 18px;">✅</span>
-                            <span>ضمان لمدة سنة</span>
-                        </li>
-                        <li style="display: flex; align-items: center; gap: 10px; font-size: 15px;">
-                            <span style="color: var(--success-green); font-size: 18px;">✅</span>
-                            <span>شحن سريع لجميع المحافظات</span>
-                        </li>
-                        <li style="display: flex; align-items: center; gap: 10px; font-size: 15px;">
-                            <span style="color: var(--success-green); font-size: 18px;">✅</span>
-                            <span>إمكانية الإرجاع والاستبدال</span>
-                        </li>
-                        <li style="display: flex; align-items: center; gap: 10px; font-size: 15px;">
-                            <span style="color: var(--success-green); font-size: 18px;">✅</span>
-                            <span>الدفع عند الاستلام</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Shipping Info -->
-                <div style="padding: 16px; background: #E8F5F1; border-radius: 8px; border-right: 4px solid var(--success-green);">
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-                        <span style="font-size: 20px;">🚚</span>
-                        <strong style="font-size: 16px;">معلومات الشحن</strong>
-                    </div>
-                    <p style="color: var(--text-gray); font-size: 14px; margin-right: 30px;">التوصيل خلال 2-3 أيام عمل | شحن مجاني للطلبات فوق 1000 جنيه</p>
-                </div>
-            </div>
-
-            <!-- Buy Box -->
-            <div>
-                <div class="buy-box" style="position: sticky; top: 90px;">
-                    <!-- Price -->
-                    <div style="margin-bottom: 20px;">
-                        <div style="font-size: 14px; color: var(--text-gray); margin-bottom: 8px;">السعر:</div>
-                        <div style="display: flex; align-items: center; gap: 12px;">
-                            <span style="font-size: 32px; font-weight: 700; color: var(--deal-red);">{{PRODUCT_PRICE}} جنيه</span>
-                            {{OLD_PRICE_HTML}}
-                        </div>
-                        {{DISCOUNT_HTML}}
-                    </div>
-
-                    <!-- Stock Status -->
-                    <div style="background: #E8F5F1; padding: 12px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
-                        <span style="color: var(--success-green); font-weight: 600; font-size: 15px;">✅ متوفر في المخزن</span>
-                    </div>
-
-                    <!-- Quantity Selector -->
-                    <div style="margin-bottom: 20px;">
-                        <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px;">الكمية:</label>
-                        <div style="display: flex; align-items: center; gap: 10px;">
-                            <button onclick="decreaseQuantity()" style="width: 40px; height: 40px; border: 2px solid var(--border-light); border-radius: 8px; font-size: 20px; display: flex; align-items: center; justify-content: center; background: white;">−</button>
-                            <input type="number" id="quantity" value="1" min="1" max="10" style="width: 80px; height: 40px; text-align: center; border: 2px solid var(--border-light); border-radius: 8px; font-size: 16px; font-weight: 600;">
-                            <button onclick="increaseQuantity()" style="width: 40px; height: 40px; border: 2px solid var(--border-light); border-radius: 8px; font-size: 20px; display: flex; align-items: center; justify-content: center; background: white;">+</button>
-                        </div>
-                    </div>
-
-                    <!-- Add to Cart Button -->
-                    <button onclick="addToCartFromProductPage()" class="btn btn-primary" style="width: 100%; padding: 16px; font-size: 18px; margin-bottom: 12px;">
-                        🛒 إضافة إلى السلة
-                    </button>
-
-                    <!-- WhatsApp Button -->
-                    <button onclick="orderViaWhatsApp()" class="btn btn-secondary" style="width: 100%; padding: 16px; font-size: 18px;">
-                        📱 طلب عبر واتساب
-                    </button>
-
-                    <!-- Trust Badges -->
-                    <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-light);">
-                        <div style="display: flex; flex-direction: column; gap: 12px; font-size: 13px; color: var(--text-gray);">
-                            <div style="display: flex; align-items: center; gap: 8px;">
-                                <span style="font-size: 16px;">🔒</span>
-                                <span>دفع آمن وموثوق</span>
-                            </div>
-                            <div style="display: flex; align-items: center; gap: 8px;">
-                                <span style="font-size: 16px;">🔄</span>
-                                <span>إرجاع مجاني خلال 14 يوم</span>
-                            </div>
-                            <div style="display: flex; align-items: center; gap: 8px;">
-                                <span style="font-size: 16px;">✅</span>
-                                <span>منتجات أصلية مضمونة</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Reviews Section -->
-        <div id="reviewsSection" style="margin-top: 60px;">
-            <h2 style="font-size: 28px; font-weight: 700; margin-bottom: 30px;">⭐ آراء العملاء</h2>
-            <div id="reviewsList"></div>
-        </div>
-    </main>
-
-    <!-- WhatsApp Float Button -->
-    <a href="https://wa.me/201110760081" class="whatsapp-float" target="_blank" rel="noopener" aria-label="تواصل معنا عبر واتساب">
-        📱
-    </a>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div style="text-align: center;">
-                <h3 style="margin-bottom: 20px; font-size: 20px;">سوق مصر - متجرك الإلكتروني الموثوق</h3>
-                <div style="display: flex; justify-content: center; gap: 20px; margin-top: 16px; flex-wrap: wrap;">
-                    <a href="../privacy.html">سياسة الخصوصية</a>
-                    <a href="../terms-of-service.html">الشروط والأحكام</a>
-                    <a href="../refund-policy.html">سياسة الاسترجاع</a>
-                    <a href="../shipping-policy.html">سياسة الشحن</a>
-                </div>
-                <p style="margin-top: 20px; color: #999; font-size: 14px;">© 2025 سوق مصر. جميع الحقوق محفوظة.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Scripts -->
     <script>
-        const productData = {
+        const product = {
             id: '{{PRODUCT_ID}}',
-            name: '{{PRODUCT_NAME}}',
-            price: {{PRODUCT_PRICE}},
+            title: '{{PRODUCT_TITLE}}',
             image: '{{PRODUCT_IMAGE}}',
-            slug: '{{PRODUCT_SLUG}}'
+            price: {{SALE_PRICE_NUMBER}},
+            description: '{{PRODUCT_DESCRIPTION}}'
         };
 
-        function increaseQuantity() {
-            const quantityInput = document.getElementById('quantity');
-            const currentValue = parseInt(quantityInput.value);
-            if (currentValue < 10) {
-                quantityInput.value = currentValue + 1;
-            }
-        }
-
-        function decreaseQuantity() {
-            const quantityInput = document.getElementById('quantity');
-            const currentValue = parseInt(quantityInput.value);
-            if (currentValue > 1) {
-                quantityInput.value = currentValue - 1;
-            }
-        }
-
-        function addToCartFromProductPage() {
-            const quantity = parseInt(document.getElementById('quantity').value);
+        function addToCart() {
             let cart = JSON.parse(localStorage.getItem('cart') || '[]');
             
-            const existingItem = cart.find(item => item.id === productData.id);
+            const existingItem = cart.find(item => item.id === product.id);
             if (existingItem) {
-                existingItem.quantity += quantity;
+                existingItem.quantity += 1;
             } else {
-                cart.push({...productData, quantity});
+                cart.push({...product, quantity: 1});
             }
             
             localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartBadge();
-            showNotification('✅ تم إضافة ' + quantity + ' من المنتج إلى السلة');
+            
+            alert('✅ تم إضافة المنتج للسلة بنجاح!');
+            
+            window.location.href = '../cart.html';
         }
 
-        function orderViaWhatsApp() {
-            const quantity = document.getElementById('quantity').value;
-            const message = `مرحباً، أريد طلب هذا المنتج:%0A%0A📌 اسم المنتج: ${encodeURIComponent(productData.name)}%0A💰 السعر: ${productData.price} جنيه%0A📦 الكمية: ${quantity}%0A🔗 الرابط: ${window.location.href}`;
-            window.open(`https://wa.me/201110760081?text=${message}`, '_blank');
+        function orderWhatsApp() {
+            const message = `مرحباً، أريد طلب:\n\n` +
+                          `📦 ${product.title}\n` +
+                          `💰 السعر: ${product.price} جنيه\n\n` +
+                          `الرجاء تأكيد الطلب وإرسال تفاصيل الشحن.`;
+            
+            const whatsappUrl = `https://wa.me/201091009228?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
         }
-
-        function updateCartBadge() {
-            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            const badge = document.getElementById('cartBadge');
-            if (badge) {
-                badge.textContent = totalItems;
-                badge.style.display = totalItems > 0 ? 'flex' : 'none';
-            }
-        }
-
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.textContent = message;
-            notification.style.cssText = `
-                position: fixed; top: 80px; right: 20px; background: #06A77D;
-                color: white; padding: 16px 24px; border-radius: 8px;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 9999;
-                font-size: 16px; font-weight: 600; animation: slideIn 0.3s ease;
-            `;
-            document.body.appendChild(notification);
-            setTimeout(() => notification.remove(), 3000);
-        }
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            updateCartBadge();
-        });
     </script>
 </body>
 </html>
