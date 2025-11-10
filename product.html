@@ -5,11 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تفاصيل المنتج - سوق مصر</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="product-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* ... تم تضمين جميع الأنماط الاحترافية هنا كما في المخرجات السابقة من الكود ... */
-        /* لن يتم تكرار الكود هنا للوضوح، سيتم رفع نفس الكود الاحترافي في ملف المنتج */
-    </style>
 </head>
 <body>
     <header>
@@ -28,7 +25,6 @@
             </div>
         </nav>
     </header>
-
     <div class="breadcrumb">
         <div class="container">
             <div class="breadcrumb-container">
@@ -40,7 +36,6 @@
             </div>
         </div>
     </div>
-
     <div class="product-detail-wrapper">
         <div class="container">
             <div id="product-detail">
@@ -48,9 +43,7 @@
             </div>
         </div>
     </div>
-
     <a href="https://wa.me/201110760081?text=مرحباً، أريد الاستفسار عن المنتجات" class="whatsapp-float" target="_blank" rel="noopener">📱</a>
-
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -79,17 +72,14 @@
             </div>
         </div>
     </footer>
-
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const productId = parseInt(urlParams.get('id'));
-
         async function loadProductDetails() {
             try {
                 const response = await fetch('products.json');
                 const products = await response.json();
                 const product = products.find(p => p.id === productId);
-
                 if (!product) {
                     document.getElementById('product-detail').innerHTML = `
                         <div style="text-align: center; padding: 4rem;">
@@ -100,7 +90,6 @@
                     `;
                     return;
                 }
-
                 document.getElementById('breadcrumb-title').textContent = product.title;
                 displayProductDetails(product);
             } catch (error) {
@@ -114,14 +103,11 @@
                 `;
             }
         }
-
         function displayProductDetails(product) {
             const discountPercent = product.sale_price && product.price > product.sale_price
                 ? Math.round(((product.price - product.sale_price) / product.price) * 100)
                 : 0;
-            
             const savings = product.price - (product.sale_price || product.price);
-
             let reviewsHTML = '';
             if (product.reviews && product.reviews.length > 0) {
                 reviewsHTML = `
@@ -131,7 +117,6 @@
                         </div>
                         <div class="reviews-list">
                 `;
-                
                 product.reviews.slice(0, 10).forEach(review => {
                     const initials = review.reviewer_name.split(' ').map(n => n[0]).join('').substring(0, 2);
                     reviewsHTML += `
@@ -153,10 +138,8 @@
                         </div>
                     `;
                 });
-                
                 reviewsHTML += `</div></div>`;
             }
-
             document.getElementById('product-detail').innerHTML = `
                 <div class="product-detail-grid">
                     <div class="product-gallery">
@@ -165,13 +148,11 @@
                             <img src="${product.image_link}" alt="${product.title}">
                         </div>
                     </div>
-                    
                     <div class="product-info-section">
                         <div>
                             <h1 class="product-title-main">${product.title}</h1>
                             <div class="product-sku">رقم المنتج: #${product.id}</div>
                         </div>
-                        
                         <div class="rating-section">
                             <div class="rating-stars">
                                 ${generateStars(product.rating || 0)}
@@ -179,7 +160,6 @@
                             <span class="rating-number">${(product.rating || 0).toFixed(1)}</span>
                             <span class="rating-count">(${product.review_count || 0} تقييم)</span>
                         </div>
-                        
                         <div class="price-section">
                             <div class="price-wrapper">
                                 <span class="current-price-large">${product.sale_price || product.price} جنيه</span>
@@ -188,12 +168,10 @@
                             </div>
                             ${savings > 0 ? `<div class="savings-text">💰 توفر ${savings} جنيه</div>` : ''}
                         </div>
-                        
                         <div class="description-section">
                             <h3>📋 وصف المنتج</h3>
                             <p>${product.description}</p>
                         </div>
-                        
                         <div class="shipping-box">
                             <div class="shipping-item">
                                 <div class="shipping-icon">🚚</div>
@@ -214,7 +192,6 @@
                                 </div>
                             </div>
                         </div>
-                        
                         <div class="action-buttons">
                             <button class="btn-add-cart" onclick="addToCart(${product.id})">
                                 🛒 إضافة للسلة
@@ -225,7 +202,6 @@
                                 📱 اطلب الآن عبر واتساب
                             </a>
                         </div>
-                        
                         <div class="trust-badges">
                             <div class="trust-badge">
                                 <div class="trust-badge-icon">✅</div>
@@ -242,11 +218,9 @@
                         </div>
                     </div>
                 </div>
-                
                 ${reviewsHTML}
             `;
         }
-
         function generateStars(rating) {
             let html = '';
             const full = Math.floor(rating);
@@ -256,11 +230,9 @@
             for (let i = 0; i < (5 - full - (half?1:0)); i++) html += '<i class="far fa-star"></i>';
             return html;
         }
-
         function addToCart(productId) {
             alert('✅ تم إضافة المنتج للسلة بنجاح!');
         }
-
         loadProductDetails();
     </script>
 </body>
