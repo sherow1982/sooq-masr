@@ -150,7 +150,7 @@
 ` +
                 `ملاحظات إضافية: `;
 
-            const whatsappURL = `https://wa.me/201000000000?text=${encodeURIComponent(productDetails)}`;
+            const whatsappURL = `https://wa.me/201110760081?text=${encodeURIComponent(productDetails)}`;
             window.open(whatsappURL, '_blank');
         }
     </script>

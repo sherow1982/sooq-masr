@@ -60,7 +60,7 @@ def generate_product_page(product):
     stars_html = '★' * int(rating) + ('☆' * (5 - int(rating)))
 
     # رقم واتساب (غيّره لرقمك)
-    whatsapp_number = '201000000000'
+    whatsapp_number = '201110760081'
 
     return f"""<!DOCTYPE html>
 <html lang="ar" dir="rtl">
