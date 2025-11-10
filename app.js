@@ -26,21 +26,49 @@ async function loadProducts() {
     }
 }
 
+// دالة لتحويل عنوان المنتج إلى اسم الملف المطابق
+function getProductPageFileName(product) {
+    // إنشاء اسم الملف بناءً على ID والعنوان
+    // مثال: product-1-جهاز-ديناميك-لإعادة-تأهيل-اليد-ايسر.html
+    
+    let title = product.title;
+    
+    // استبدال المسافات بشرطات
+    title = title.replace(/\s+/g, '-');
+    
+    // إزالة الأحرف الخاصة ماعدا الحروف العربية والإنجليزية والأرقام والشرطات
+    title = title.replace(/[^\u0600-\u06FFa-zA-Z0-9\-]/g, '');
+    
+    // إزالة الشرطات المتعددة المتتالية
+    title = title.replace(/-+/g, '-');
+    
+    // إزالة الشرطات من البداية والنهاية
+    title = title.replace(/^-|-$/g, '');
+    
+    return `products-pages/product-${product.id}-${title}.html`;
+}
+
 function displayProducts() {
     const productsContainer = document.getElementById('products-container');
     productsContainer.innerHTML = '';
     const startIndex = (currentPage - 1) * productsPerPage;
     const endIndex = startIndex + productsPerPage;
     const productsToShow = filteredProducts.slice(startIndex, endIndex);
+    
     if (productsToShow.length === 0) {
         productsContainer.innerHTML = '<div class="no-products">لا توجد منتجات بهذا البحث</div>';
         updatePagination();
         return;
     }
+    
     productsToShow.forEach(product => {
         const card = document.createElement('div');
         card.className = 'product-card';
-        card.onclick = () => window.location.href = `product.html?id=${product.id}`;
+        
+        // ربط البطاقة بصفحة المنتج الصحيحة في مجلد products-pages
+        const productPageURL = getProductPageFileName(product);
+        card.onclick = () => window.location.href = productPageURL;
+        
         card.innerHTML = `
         ${product.google_product_category ? `<div class="product-category">${product.google_product_category.split('>').pop().trim()}</div>` : ''}
          ${(product.sale_price && product.price > product.sale_price) ? `<div class="discount-badge">-${Math.round((product.price-product.sale_price)/product.price*100)}%</div>` : ''}
