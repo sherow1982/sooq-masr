@@ -1,0 +1,50 @@
+[
+  {
+    "id": "all",
+    "name": "الكل",
+    "icon": "🛍️",
+    "filter": "all"
+  },
+  {
+    "id": "health-beauty",
+    "name": "الصحة والجمال",
+    "icon": "💄",
+    "filter": "Health & Beauty"
+  },
+  {
+    "id": "home-garden",
+    "name": "المنزل والحديقة",
+    "icon": "🏠",
+    "filter": "Home & Garden"
+  },
+  {
+    "id": "hair-care",
+    "name": "العناية بالشعر",
+    "icon": "💇",
+    "filter": "Hair Care"
+  },
+  {
+    "id": "skin-care",
+    "name": "العناية بالبشرة",
+    "icon": "✨",
+    "filter": "Skin Care"
+  },
+  {
+    "id": "furniture",
+    "name": "الأثاث",
+    "icon": "🪑",
+    "filter": "Furniture"
+  },
+  {
+    "id": "personal-care",
+    "name": "العناية الشخصية",
+    "icon": "🧴",
+    "filter": "Personal Care"
+  },
+  {
+    "id": "cosmetics",
+    "name": "مستحضرات التجميل",
+    "icon": "💅",
+    "filter": "Cosmetics"
+  }
+]

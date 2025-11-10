@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>• دفاية كهربائية 2000 Watt - سوق مصر</title>
+    <meta name="description" content="منتج أصلي • دفاية كهربائية 2000 Watt بأفضل سعر في مصر. شحن سريع لجميع المحافظات.">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .product-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.3);
+            overflow: hidden;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .product-header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .rating-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .stars {
+            color: #fbbf24;
+            font-size: 1.8rem;
+            letter-spacing: 3px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .rating-text {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .product-main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 40px;
+        }
+
+        .product-image-section {
+            position: relative;
+        }
+
+        .discount-badge-img {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 8px 20px rgba(255,107,107,0.4);
+            z-index: 10;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .product-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            transition: transform 0.4s ease;
+        }
+
+        .product-image:hover {
+            transform: scale(1.05);
+        }
+
+        .product-details {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .price-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 30px;
+            border-radius: 20px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(245,87,108,0.3);
+        }
+
+        .price-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .current-price {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .original-price {
+            font-size: 1.5rem;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        .discount-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.3);
+            padding: 8px 20px;
+            border-radius: 50px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .info-card {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 15px;
+            border-right: 5px solid #667eea;
+        }
+
+        .info-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .info-card p {
+            color: #475569;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 18px 35px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 10px 25px rgba(102,126,234,0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(102,126,234,0.6);
+        }
+
+        .btn-cart {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            box-shadow: 0 10px 25px rgba(245,87,108,0.4);
+        }
+
+        .btn-cart:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(245,87,108,0.6);
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            box-shadow: 0 10px 25px rgba(37,211,102,0.4);
+        }
+
+        .btn-whatsapp:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(37,211,102,0.6);
+        }
+
+        .reviews-section {
+            padding: 40px;
+            background: #f8fafc;
+        }
+
+        .reviews-section h2 {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .review-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .reviewer-name {
+            font-weight: bold;
+            color: #1e293b;
+            font-size: 1.1rem;
+        }
+
+        .review-date {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .review-text {
+            color: #475569;
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin: 20px;
+            padding: 12px 30px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .product-main {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+
+            .product-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .current-price {
+                font-size: 2rem;
+            }
+
+            .product-image {
+                height: 350px;
+            }
+
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-button">← العودة للرئيسية</a>
+
+    <div class="product-container">
+        <div class="product-header">
+            <h1>• دفاية كهربائية 2000 Watt</h1>
+            <div class="rating-container">
+                <div class="stars">{{STARS}}</div>
+                <span class="rating-text">({{REVIEWS_COUNT}} تقييم)</span>
+            </div>
+        </div>
+
+        <div class="product-main">
+            <div class="product-image-section">
+                {{DISCOUNT_BADGE}}
+                <img src="https://media.taager.com/360x360/9b945cf4-3557-4d7f-aa80-544e8f27b015.png" alt="• دفاية كهربائية 2000 Watt" class="product-image">
+            </div>
+
+            <div class="product-details">
+                <div class="price-section">
+                    <div class="price-label">السعر الخاص</div>
+                    <div class="current-price">{{SALE_PRICE}} جنيه</div>
+                    {{ORIGINAL_PRICE}}
+                    {{DISCOUNT_PERCENT}}
+                </div>
+
+                <div class="info-card">
+                    <h3>📦 معلومات الشحن</h3>
+                    <p>100</p>
+                    <p>التوصيل خلال 3 أيام عمل</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>✨ وصف المنتج</h3>
+                    <p>منتج أصلي • دفاية كهربائية 2000 Watt بأفضل سعر في مصر. شحن سريع لجميع المحافظات.</p>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-cart" onclick="addToCart()">
+                        🛒 أضف للسلة
+                    </button>
+                    <a href="../cart.html" class="btn btn-primary">
+                        🛍️ اذهب للسلة
+                    </a>
+                    <button class="btn btn-whatsapp" onclick="orderWhatsApp()">
+                        📱 اطلب عبر واتساب
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="reviews-section">
+            <h2>⭐ آراء العملاء</h2>
+            <div class="reviews-grid">
+                {{REVIEWS_SECTION}}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const product = {
+            id: '246',
+            title: '• دفاية كهربائية 2000 Watt',
+            image: 'https://media.taager.com/360x360/9b945cf4-3557-4d7f-aa80-544e8f27b015.png',
+            price: {{SALE_PRICE_NUMBER}},
+            description: 'منتج أصلي • دفاية كهربائية 2000 Watt بأفضل سعر في مصر. شحن سريع لجميع المحافظات.'
+        };
+
+        function addToCart() {
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            
+            const existingItem = cart.find(item => item.id === product.id);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({...product, quantity: 1});
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            alert('✅ تم إضافة المنتج للسلة بنجاح!');
+            
+            window.location.href = '../cart.html';
+        }
+
+        function orderWhatsApp() {
+            const message = `مرحباً، أريد طلب:\n\n` +
+                          `📦 ${product.title}\n` +
+                          `💰 السعر: ${product.price} جنيه\n\n` +
+                          `الرجاء تأكيد الطلب وإرسال تفاصيل الشحن.`;
+            
+            const whatsappUrl = `https://wa.me/201091009228?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+</body>
+</html>

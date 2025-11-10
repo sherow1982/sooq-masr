@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جهاز ديناميك لإعادة تأهيل اليد ايسر - سوق مصر</title>
+    <meta name="description" content="منتج أصلي جهاز ديناميك لإعادة تأهيل اليد ايسر بأفضل سعر في مصر. شحن سريع لجميع المحافظات.">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        ... (تم اختصاره للنظام) ...
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-button">← العودة للرئيسية</a>
+    <div class="product-container">
+        <div class="product-header">
+            <h1>جهاز ديناميك لإعادة تأهيل اليد ايسر</h1>
+            <div class="rating-container">
+                <div class="stars">★★★★☆</div>
+                <span class="rating-text">(24 تقييم)</span>
+            </div>
+        </div>
+        <div class="product-main">
+            <div class="product-image-section">
+                <div class="discount-badge-img">خصم 7%</div>
+                <img src="https://media.taager.com/360x360/86971a57-a2e0-4a39-a3c3-75a7c2663117.jpg" alt="جهاز ديناميك لإعادة تأهيل اليد ايسر" class="product-image">
+            </div>
+            <div class="product-details">
+                <div class="price-section">
+                    <div class="price-label">السعر الخاص</div>
+                    <div class="current-price">6،250 جنيه</div>
+                    <span class="original-price">6،750 جنيه</span>
+                    <span class="discount-badge">وفر 7%</span>
+                </div>
+                <div class="info-card">
+                    <h3>📦 معلومات الشحن</h3>
+                    <p>الشحن لكل مصر 100جنيه</p>
+                    <p>التوصيل خلال 3 أيام عمل</p>
+                </div>
+                <div class="info-card">
+                    <h3>✨ وصف المنتج</h3>
+                    <p>منتج أصلي جهاز ديناميك لإعادة تأهيل اليد ايسر بأفضل سعر في مصر. شحن سريع لجميع المحافظات.</p>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-cart" onclick="addToCart()">🛒 أضف للسلة
+                    </button>
+                    <a href="../cart.html" class="btn btn-primary">🛍️ اذهب للسلة</a>
+                    <button class="btn btn-whatsapp" onclick="orderWhatsApp()">📱 اطلب عبر واتساب</button>
+                </div>
+            </div>
+        </div>
+        <div class="reviews-section">
+            <h2>⭐ آراء العملاء</h2>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-header">
+                        <span class="reviewer-name">خالد سعيد</span>
+                        <span class="review-date">2025-06-17</span>
+                    </div>
+                    <div class="stars" style="color: #fbbf24; font-size: 1.2rem; margin: 10px 0;">★★★★★</div>
+                    <p class="review-text">وصل بسرعة والتعامل محترم، شكراً</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <span class="reviewer-name">هبة الله</span>
+                        <span class="review-date">2025-08-23</span>
+                    </div>
+                    <div class="stars" style="color: #fbbf24; font-size: 1.2rem; margin: 10px 0;">★★★★★</div>
+                    <p class="review-text">راضي جداً عن المنتج والخدمة</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <span class="reviewer-name">آية الله</span>
+                        <span class="review-date">2025-05-27</span>
+                    </div>
+                    <div class="stars" style="color: #fbbf24; font-size: 1.2rem; margin: 10px 0;">★★★★★</div>
+                    <p class="review-text">منتج كويس لكن كان نفسي يكون أرخص</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <span class="reviewer-name">حسين علي</span>
+                        <span class="review-date">2025-05-26</span>
+                    </div>
+                    <div class="stars" style="color: #fbbf24; font-size: 1.2rem; margin: 10px 0;">★★★★★</div>
+                    <p class="review-text">ممتاز والله، ربنا يبارك</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <span class="reviewer-name">محمود إبراهيم</span>
+                        <span class="review-date">2025-05-26</span>
+                    </div>
+                    <div class="stars" style="color: #fbbf24; font-size: 1.2rem; margin: 10px 0;">★★★★☆</div>
+                    <p class="review-text">المنتج حلو والسعر مناسب</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const product = {id: '1',title: 'جهاز ديناميك لإعادة تأهيل اليد ايسر',image: 'https://media.taager.com/360x360/86971a57-a2e0-4a39-a3c3-75a7c2663117.jpg',price: 6250,description: 'منتج أصلي جهاز ديناميك لإعادة تأهيل اليد ايسر بأفضل سعر في مصر. شحن سريع لجميع المحافظات.'};
+        function addToCart() {let cart = JSON.parse(localStorage.getItem('cart') || '[]');const existingItem = cart.find(item => item.id === product.id);if (existingItem) {existingItem.quantity += 1;} else {cart.push({...product, quantity: 1});}localStorage.setItem('cart', JSON.stringify(cart));alert('✅ تم إضافة المنتج للسلة بنجاح!');window.location.href = '../cart.html';}
+        function orderWhatsApp() {const message = `مرحباً، أريد طلب:\n\n` +`📦 ${product.title}\n` +`💰 السعر: ${product.price} جنيه\n\n` +`الرجاء تأكيد الطلب وإرسال تفاصيل الشحن.`;const whatsappUrl = `https://wa.me/201091009228?text=${encodeURIComponent(message)}`;window.open(whatsappUrl, '_blank');}
+    </script>
+</body>
+</html>

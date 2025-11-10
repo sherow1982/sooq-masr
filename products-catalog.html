@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كتالوج المنتجات - سوق مصر</title>
+    <meta name="description" content="تصفح جميع منتجات سوق مصر المنظمة حسب الفئات - صحة وجمال، إلكترونيات، أجهزة منزلية وغيرها">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: #f5f7fa;
+            padding-top: 70px;
+            font-family: Cairo, sans-serif;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+        
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .categories-filter {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .filter-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #1f2937;
+        }
+        
+        .category-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .category-btn {
+            padding: 12px 24px;
+            border: 2px solid #e5e7eb;
+            background: white;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #4b5563;
+        }
+        
+        .category-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+        
+        .category-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-color: transparent;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-category {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #f3f4f6;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #1f2937;
+            line-height: 1.4;
+        }
+        
+        .product-price-box {
+            margin-top: 1rem;
+        }
+        
+        .product-original-price {
+            font-size: 0.9rem;
+            color: #9ca3af;
+            text-decoration: line-through;
+        }
+        
+        .product-current-price {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #667eea;
+            margin-top: 0.25rem;
+        }
+        
+        .product-discount {
+            display: inline-block;
+            padding: 4px 8px;
+            background: #dcfce7;
+            color: #16a34a;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-top: 0.5rem;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            font-size: 1.2rem;
+            color: #6b7280;
+        }
+        
+        .no-products {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 16px;
+        }
+        
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="index.html" class="logo">🛒 سوق مصر</a>
+                <div class="nav-links">
+                    <a href="index.html">الرئيسية</a>
+                    <a href="products-catalog.html" class="active">المنتجات</a>
+                    <a href="cart.html">السلة</a>
+                    <a href="contact.html">تواصل معنا</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>🛍️ كتالوج المنتجات</h1>
+            <p>اكتشف أفضل المنتجات بأسعار لا تقاوم</p>
+        </div>
+
+        <div class="categories-filter">
+            <div class="filter-title">🏷️ تصفية حسب الفئة</div>
+            <div class="category-buttons" id="categoryButtons">
+                <button class="category-btn active" data-category="all">جميع المنتجات</button>
+            </div>
+        </div>
+
+        <div id="productsContainer">
+            <div class="loading">جاري تحميل المنتجات...</div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+            <button id="loadMoreBtn" onclick="loadMore()" style="display:none;background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 16px 48px; border: none; border-radius: 12px; font-size: 18px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 25px rgba(102,126,234,0.3); transition: all 0.3s; font-family: inherit;" onmouseover="this.style.transform='scale(1.05)';this.style.boxShadow='0 12px 35px rgba(102,126,234,0.4)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 8px 25px rgba(102,126,234,0.3)'">
+                تحميل المزيد 📦
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const PRODUCTS_PER_PAGE = 12;
+        let allProducts = [];
+        let filteredProducts = [];
+        let displayedProducts = [];
+        let currentCategory = 'all';
+        let currentPage = 1;
+        
+        // تحميل المنتجات من ملف JSON
+        async function loadProducts() {
+            try {
+                const response = await fetch('products.json');
+                const data = await response.json();
+                allProducts = data || [];
+                
+                // استخراج الفئات الفريدة
+                const categories = [...new Set(allProducts.map(p => p.google_product_category).filter(c => c))];
+                
+                // إنشاء أزرار الفئات
+                const categoryButtons = document.getElementById('categoryButtons');
+                categories.forEach(category => {
+                    const btn = document.createElement('button');
+                    btn.className = 'category-btn';
+                    btn.textContent = category;
+                    btn.dataset.category = category;
+                    btn.onclick = () => filterByCategory(category);
+                    categoryButtons.appendChild(btn);
+                });
+                
+                // عرض جميع المنتجات
+                filteredProducts = allProducts;
+                displayedProducts = allProducts.slice(0, PRODUCTS_PER_PAGE);
+                displayProducts(displayedProducts);
+                updateLoadMoreButton();
+            } catch (error) {
+                console.error('خطأ في تحميل المنتجات:', error);
+                document.getElementById('productsContainer').innerHTML = 
+                    '<div class="no-products"><h2>عذراً، حدث خطأ في تحميل المنتجات</h2></div>';
+            }
+        }
+        
+        // تصفية المنتجات حسب الفئة
+        function filterByCategory(category) {
+            currentCategory = category;
+            
+            // تحديث الأزرار النشطة
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.category === category) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // تصفية وعرض المنتجات
+            filteredProducts = category === 'all' 
+                ? allProducts 
+                : allProducts.filter(p => p.google_product_category === category);
+            
+            currentPage = 1;
+            displayedProducts = filteredProducts.slice(0, PRODUCTS_PER_PAGE);
+            displayProducts(displayedProducts);
+            updateLoadMoreButton();
+        }
+        
+        // عرض المنتجات
+        function displayProducts(products) {
+            const container = document.getElementById('productsContainer');
+            
+            if (products.length === 0) {
+                container.innerHTML = '<div class="no-products"><h2>لا توجد منتجات في هذه الفئة</h2></div>';
+                return;
+            }
+            
+            const grid = document.createElement('div');
+            grid.className = 'products-grid';
+            
+            products.forEach(product => {
+                const card = createProductCard(product);
+                grid.appendChild(card);
+            });
+            
+            container.innerHTML = '';
+            container.appendChild(grid);
+        }
+        
+        // إنشاء بطاقة منتج
+        function createProductCard(product) {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            
+            // حساب السعر الأصلي إذا كان هناك خصم
+            const price = parseFloat(product.price) || 0;
+            const salePrice = parseFloat(product.sale_price) || price;
+            const discount = price !== salePrice ? Math.round((price - salePrice) / price * 100) : 0;
+            const hasDiscount = discount > 0;
+            
+            let originalPrice = '';
+            let discountBadge = '';
+            
+            if (hasDiscount) {
+                originalPrice = `<div class="product-original-price">${price.toFixed(2)} ج.م</div>`;
+                discountBadge = `<span class="product-discount">خصم ${discount}%</span>`;
+            }
+            
+            // إنشاء رابط الصفحة
+            let productLink = '';
+            if (product.link) {
+                productLink = product.link.startsWith('products-pages/') ? product.link : 'products-pages/' + product.link;
+            } else {
+                productLink = `products-pages/product-${product.id}-${product.title.replace(/[\s\n]+/g,'-').replace(/[^\w\-\u0600-\u06FF]+/g,'')}.html`;
+            }
+            
+            card.innerHTML = `
+                <img src="${product.image_link || 'https://via.placeholder.com/300'}" 
+                     alt="${product.title}" 
+                     class="product-image"
+                     onerror="this.src='https://via.placeholder.com/300?text=صورة+غير+متوفرة'">
+                <div class="product-info">
+                    <span class="product-category">${product.google_product_category || 'عام'}</span>
+                    <div class="product-title">${product.title}</div>
+                    <div class="product-price-box">
+                        ${originalPrice}
+                        <div class="product-current-price">${salePrice.toFixed(2)} ج.م</div>
+                        ${discountBadge}
+                    </div>
+                </div>
+            `;
+            
+            card.onclick = () => {
+                window.location.href = productLink;
+            };
+            
+            return card;
+        }
+        
+        // تحميل المزيد
+        function loadMore() {
+            const startIndex = currentPage * PRODUCTS_PER_PAGE;
+            const endIndex = startIndex + PRODUCTS_PER_PAGE;
+            const newProducts = filteredProducts.slice(startIndex, endIndex);
+            
+            if (newProducts.length > 0) {
+                displayedProducts = displayedProducts.concat(newProducts);
+                currentPage++;
+                
+                // إضافة المنتجات الجديدة
+                const grid = document.querySelector('.products-grid');
+                newProducts.forEach(product => {
+                    const card = createProductCard(product);
+                    grid.appendChild(card);
+                });
+                
+                updateLoadMoreButton();
+            }
+        }
+        
+        // تحديث زر تحميل المزيد
+        function updateLoadMoreButton() {
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            if (!loadMoreBtn) return;
+            
+            const totalProducts = filteredProducts.length;
+            const displayedCount = displayedProducts.length;
+            
+            if (displayedCount >= totalProducts) {
+                loadMoreBtn.style.display = 'none';
+            } else {
+                loadMoreBtn.style.display = 'inline-block';
+                const remaining = totalProducts - displayedCount;
+                loadMoreBtn.textContent = `تحميل المزيد (${remaining} منتج متبقي)`;
+            }
+        }
+        
+        // تحميل المنتجات عند تحميل الصفحة
+        loadProducts();
+    </script>
+</body>
+</html>

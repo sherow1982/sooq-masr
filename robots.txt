@@ -1,0 +1,14 @@
+# Robots.txt for سوق مصر
+User-agent: *
+Allow: /
+
+# Disallow admin and cart pages from indexing
+Disallow: /cart.html
+Disallow: /checkout.html
+
+# Allow all product pages
+Allow: /products-pages/
+
+# Sitemap location
+Sitemap: https://sooq-masr.arabsad.com/sitemap.xml
+Sitemap: https://sooq-masr.arabsad.com/sitemap-products.xml

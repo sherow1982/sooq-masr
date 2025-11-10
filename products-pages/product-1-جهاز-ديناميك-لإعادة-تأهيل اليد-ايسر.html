@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جهاز ديناميك لإعادة تأهيل اليد ايسر - سوق مصر</title>
+    <meta name="description" content="منتج أصلي جهاز ديناميك لإعادة تأهيل اليد ايسر بأفضل سعر في مصر. شحن سريع لجميع المحافظات.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <script src="../cart.js"></script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            direction: rtl;
+        }
+
+        .page-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header Navigation */
+        .top-bar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Main Product Section */
+        .product-container {
+            background: white;
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        /* Image Section */
+        .image-section {
+            position: sticky;
+            top: 20px;
+        }
+
+        .main-image-wrapper {
+            position: relative;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+        }
+
+        .main-image {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 20px;
+            transition: transform 0.3s;
+        }
+
+        .main-image:hover {
+            transform: scale(1.05);
+        }
+
+        .sale-badge {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 20px rgba(245, 87, 108, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Product Info Section */
+        .info-section {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .product-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1a202c;
+            line-height: 1.3;
+            margin-bottom: 10px;
+        }
+
+        .rating-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 25px;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            border-radius: 50px;
+            width: fit-content;
+        }
+
+        .stars {
+            color: #f39c12;
+            font-size: 1.4rem;
+            letter-spacing: 3px;
+        }
+
+        .rating-count {
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* Price Section */
+        .price-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 35px;
+            border-radius: 25px;
+            color: white;
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .price-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .price-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .old-price {
+            font-size: 1.5rem;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        .current-price {
+            font-size: 3.5rem;
+            font-weight: 800;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .save-badge {
+            background: rgba(255, 255, 255, 0.25);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Description Card */
+        .description-card {
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+            padding: 30px;
+            border-radius: 20px;
+            border-right: 5px solid #00bcd4;
+        }
+
+        .description-card h3 {
+            font-size: 1.5rem;
+            color: #006064;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .description-card p {
+            color: #00695c;
+            line-height: 1.9;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Shipping Info */
+        .shipping-card {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            padding: 30px;
+            border-radius: 20px;
+            border-right: 5px solid #28a745;
+        }
+
+        .shipping-card h4 {
+            font-size: 1.4rem;
+            color: #155724;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .shipping-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #1e7e34;
+            margin: 12px 0;
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+
+        .shipping-item strong {
+            color: #155724;
+        }
+
+        /* Action Buttons */
+        .buttons-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .action-btn {
+            padding: 20px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .btn-cart {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-cart:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5);
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-whatsapp:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(37, 211, 102, 0.5);
+        }
+
+        /* Reviews Section */
+        .reviews-container {
+            background: white;
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .reviews-header {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1a202c;
+            margin-bottom: 40px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .review-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 25px;
+            border-radius: 20px;
+            border-right: 4px solid #667eea;
+            transition: all 0.3s;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
+        .reviewer {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .reviewer-name {
+            font-weight: 700;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+
+        .review-stars {
+            color: #f39c12;
+            font-size: 1.2rem;
+        }
+
+        .review-date {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .review-text {
+            color: #34495e;
+            line-height: 1.7;
+            font-size: 1.05rem;
+            margin-bottom: 12px;
+        }
+
+        .verified-badge {
+            color: #28a745;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Success Notification */
+        .success-notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 50px;
+            box-shadow: 0 10px 40px rgba(40, 167, 69, 0.4);
+            z-index: 10000;
+            opacity: 0;
+            transition: all 0.4s;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .success-notification.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .image-section {
+                position: relative;
+            }
+
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .product-container {
+                padding: 30px 20px;
+            }
+
+            .reviews-container {
+                padding: 30px 20px;
+            }
+
+            .product-title {
+                font-size: 1.8rem;
+            }
+
+            .current-price {
+                font-size: 2.5rem;
+            }
+
+            .buttons-row {
+                grid-template-columns: 1fr;
+            }
+
+            .top-bar {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <a href="../index.html" class="back-btn">
+                <span>←</span>
+                العودة للمتجر
+            </a>
+            <div class="logo">🛍️ سوق مصر</div>
+        </div>
+
+        <!-- Product Section -->
+        <div class="product-container">
+            <div class="product-grid">
+                <!-- Image Section -->
+                <div class="image-section">
+                    <div class="main-image-wrapper">
+                        <div class="sale-badge">وفر 7%</div>
+                        <img src="https://media.taager.com/360x360/86971a57-a2e0-4a39-a3c3-75a7c2663117.jpg" alt="جهاز ديناميك لإعادة تأهيل اليد ايسر" class="main-image">
+                    </div>
+                </div>
+
+                <!-- Info Section -->
+                <div class="info-section">
+                    <h1 class="product-title">جهاز ديناميك لإعادة تأهيل اليد ايسر</h1>
+
+                    <div class="rating-box">
+                        <div class="stars">★★★★☆</div>
+                        <div class="rating-count">(36 تقييم)</div>
+                    </div>
+
+                    <div class="price-card">
+                        <div class="price-label">✨ السعر الخاص بك</div>
+                        <div class="price-row">
+                            <span class="old-price">6750 جنيه</span>
+                            <span class="current-price">6250 جنيه</span>
+                            <span class="save-badge">وفر 7%</span>
+                        </div>
+                    </div>
+
+                    <div class="description-card">
+                        <h3>📝 وصف المنتج</h3>
+                        <p>منتج أصلي جهاز ديناميك لإعادة تأهيل اليد ايسر بأفضل سعر في مصر. شحن سريع لجميع المحافظات.</p>
+                    </div>
+
+                    <div class="shipping-card">
+                        <h4>🚚 معلومات الشحن والتوصيل</h4>
+                        <div class="shipping-item">
+                            <span>📦</span>
+                            <span><strong>تكلفة الشحن:</strong> الشحن لكل مصر 100جنيه</span>
+                        </div>
+                        <div class="shipping-item">
+                            <span>⏱️</span>
+                            <span><strong>وقت التوصيل:</strong> التوصيل خلال 3 أيام عمل</span>
+                        </div>
+                        <div class="shipping-item">
+                            <span>✅</span>
+                            <span><strong>ضمان:</strong> منتج أصلي 100%</span>
+                        </div>
+                    </div>
+
+                    <div class="buttons-row">
+                        <button class="action-btn btn-cart" onclick="addToCartAndNotify()">
+                            <span>🛒</span>
+                            أضف للسلة
+                        </button>
+                        <button class="action-btn btn-whatsapp" onclick="orderViaWhatsApp()">
+                            <span>💬</span>
+                            اطلب بالواتساب
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reviews Section -->
+        <div class="reviews-container">
+            <h2 class="reviews-header">
+                <span>⭐</span>
+                آراء عملائنا
+                <span>⭐</span>
+            </h2>
+            <div class="reviews-grid">
+                
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="reviewer">
+                        <div class="reviewer-name">👤 ريم خالد</div>
+                        <div class="review-stars">★★★★☆</div>
+                    </div>
+                    <div class="review-date">2025-06-20</div>
+                </div>
+                <div class="review-text">راضي جداً عن المنتج والخدمة</div>
+                <div class="verified-badge">
+                    <span>✓</span>
+                    عملية شراء موثقة
+                </div>
+            </div>
+        
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="reviewer">
+                        <div class="reviewer-name">👤 هدى سعيد</div>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                    <div class="review-date">2025-06-09</div>
+                </div>
+                <div class="review-text">المنتج حلو والسعر مناسب</div>
+                <div class="verified-badge">
+                    <span>✓</span>
+                    عملية شراء موثقة
+                </div>
+            </div>
+        
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="reviewer">
+                        <div class="reviewer-name">👤 طارق جمال</div>
+                        <div class="review-stars">★★★★☆</div>
+                    </div>
+                    <div class="review-date">2025-07-11</div>
+                </div>
+                <div class="review-text">منتج ممتاز جداً والجودة عالية، أنصح بالشراء</div>
+                <div class="verified-badge">
+                    <span>✓</span>
+                    عملية شراء موثقة
+                </div>
+            </div>
+        
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="reviewer">
+                        <div class="reviewer-name">👤 كريم عادل</div>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                    <div class="review-date">2025-09-11</div>
+                </div>
+                <div class="review-text">المنتج حلو والسعر مناسب</div>
+                <div class="verified-badge">
+                    <span>✓</span>
+                    عملية شراء موثقة
+                </div>
+            </div>
+        
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="reviewer">
+                        <div class="reviewer-name">👤 خالد يوسف</div>
+                        <div class="review-stars">★★★★☆</div>
+                    </div>
+                    <div class="review-date">2025-08-21</div>
+                </div>
+                <div class="review-text">منتج ممتاز جداً والجودة عالية، أنصح بالشراء</div>
+                <div class="verified-badge">
+                    <span>✓</span>
+                    عملية شراء موثقة
+                </div>
+            </div>
+        
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="reviewer">
+                        <div class="reviewer-name">👤 أحمد محمد</div>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                    <div class="review-date">2025-10-08</div>
+                </div>
+                <div class="review-text">منتج رائع، أنصح الكل بيه</div>
+                <div class="verified-badge">
+                    <span>✓</span>
+                    عملية شراء موثقة
+                </div>
+            </div>
+        
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="reviewer">
+                        <div class="reviewer-name">👤 سارة أحمد</div>
+                        <div class="review-stars">★★★★☆</div>
+                    </div>
+                    <div class="review-date">2025-06-11</div>
+                </div>
+                <div class="review-text">وصل بسرعة والتعامل محترم، شكراً</div>
+                <div class="verified-badge">
+                    <span>✓</span>
+                    عملية شراء موثقة
+                </div>
+            </div>
+        
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="reviewer">
+                        <div class="reviewer-name">👤 أحمد محمد</div>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                    <div class="review-date">2025-07-03</div>
+                </div>
+                <div class="review-text">جودة عالية وتوصيل محترم</div>
+                <div class="verified-badge">
+                    <span>✓</span>
+                    عملية شراء موثقة
+                </div>
+            </div>
+        
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="reviewer">
+                        <div class="reviewer-name">👤 هدى سعيد</div>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                    <div class="review-date">2025-10-05</div>
+                </div>
+                <div class="review-text">الجودة أفضل من المتوقع بكتير</div>
+                <div class="verified-badge">
+                    <span>✓</span>
+                    عملية شراء موثقة
+                </div>
+            </div>
+        
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="reviewer">
+                        <div class="reviewer-name">👤 مريم حسين</div>
+                        <div class="review-stars">★★★★☆</div>
+                    </div>
+                    <div class="review-date">2025-09-23</div>
+                </div>
+                <div class="review-text">منتج كويس بس العبوة كانت محتاجة تحسين</div>
+                <div class="verified-badge">
+                    <span>✓</span>
+                    عملية شراء موثقة
+                </div>
+            </div>
+        
+            </div>
+        </div>
+    </div>
+
+    <div class="success-notification" id="cartNotification">
+        ✅ تم إضافة المنتج للسلة بنجاح!
+    </div>
+
+    <script>
+        const productData = {
+            id: 1,
+            title: "جهاز ديناميك لإعادة تأهيل اليد ايسر",
+            price: 6250,
+            image_link: "https://media.taager.com/360x360/86971a57-a2e0-4a39-a3c3-75a7c2663117.jpg",
+            sale_price: 6250
+        };
+
+        function addToCartAndNotify() {
+            shoppingCart.addToCart(productData);
+            const notification = document.getElementById('cartNotification');
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        function orderViaWhatsApp() {
+            const message = `🛍️ *طلب من سوق مصر*\n\n` +
+                `*المنتج:* جهاز ديناميك لإعادة تأهيل اليد ايسر\n` +
+                `*السعر:* 6250 جنيه\n` +
+                `*الشحن:* الشحن لكل مصر 100جنيه\n\n` +
+                `─────────────\n` +
+                `*من فضلك أدخل بياناتك:*\n` +
+                `الاسم: \n` +
+                `رقم الهاتف: \n` +
+                `العنوان التفصيلي: \n` +
+                `المحافظة: \n` +
+                `ملاحظات: `;
+
+            const whatsappURL = `https://wa.me/201000000000?text=${encodeURIComponent(message)}`;
+            window.open(whatsappURL, '_blank');
+        }
+    </script>
+</body>
+</html>
