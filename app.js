@@ -1,7 +1,50 @@
 
-// تحميل بيانات المنتجات من GitHub
+// تحميل المنتجات من GitHub
 const PRODUCTS_JSON_URL = 'https://raw.githubusercontent.com/sherow1982/sooq-masr/main/products.json';
-const PRODUCTS_PAGES_BASE = 'https://sherow1982.github.io/sooq-masr/products-pages/';
+const PRODUCTS_PAGES_BASE = 'products-pages/';
+
+// تنظيف اسم الملف (إزالة المسافات والأحرف الممنوعة)
+function cleanFilename(text) {
+    const forbidden = {
+        '<': '‹', '>': '›', ':': '∶', '"': '＂',
+        '/': '⁄', '\\': '⧹', '|': '｜', '?': '？', '*': '✱'
+    };
+
+    let cleaned = text;
+
+    // استبدال الأحرف الممنوعة
+    for (let [char, replacement] of Object.entries(forbidden)) {
+        cleaned = cleaned.split(char).join(replacement);
+    }
+
+    // استبدال جميع المسافات بشرطات (مهم!)
+    cleaned = cleaned.replace(/\s+/g, '-');
+
+    // إزالة الأقواس
+    cleaned = cleaned.replace(/[()]/g, '');
+
+    // إزالة الشرطات المتكررة
+    cleaned = cleaned.replace(/-+/g, '-');
+
+    // إزالة الشرطات من البداية والنهاية
+    cleaned = cleaned.replace(/^-+|-+$/g, '');
+
+    return cleaned;
+}
+
+// الحصول على اسم ملف المنتج
+function getProductPageFilename(product) {
+    const cleanSlug = cleanFilename(product.slug);
+    let filename = `product-${product.id}-${cleanSlug}.html`;
+
+    // تقصير إذا كان طويل جداً
+    if (filename.length > 200) {
+        const shortSlug = cleanSlug.substring(0, 80);
+        filename = `product-${product.id}-${shortSlug}.html`;
+    }
+
+    return filename;
+}
 
 // تحميل المنتجات
 async function loadProducts() {
@@ -10,8 +53,9 @@ async function loadProducts() {
         const products = await response.json();
         displayProducts(products);
     } catch (error) {
-        console.error('خطأ في تحميل المنتجات:', error);
-        document.getElementById('products-container').innerHTML = '<p class="error-msg">عذراً، حدث خطأ في تحميل المنتجات. يرجى المحاولة لاحقاً.</p>';
+        console.error('خطأ:', error);
+        document.getElementById('products-container').innerHTML = 
+            '<p class="error-msg">عذراً، حدث خطأ في تحميل المنتجات</p>';
     }
 }
 
@@ -21,19 +65,19 @@ function displayProducts(products) {
     container.innerHTML = '';
 
     products.forEach(product => {
-        const productCard = createProductCard(product);
-        container.appendChild(productCard);
+        const card = createProductCard(product);
+        container.appendChild(card);
     });
 }
 
-// إنشاء بطاقة منتج احترافية
+// إنشاء بطاقة منتج
 function createProductCard(product) {
     const card = document.createElement('a');
     card.className = 'product-card';
-    card.href = `${PRODUCTS_PAGES_BASE}${product.slug}.html`;
-    card.target = '_blank';
 
-    // حساب نسبة الخصم
+    const filename = getProductPageFilename(product);
+    card.href = `${PRODUCTS_PAGES_BASE}${filename}`;
+
     const discount = product.price && product.sale_price ? 
         Math.round(((product.price - product.sale_price) / product.price) * 100) : 0;
 
@@ -44,16 +88,15 @@ function createProductCard(product) {
         </div>
 
         <div class="card-image">
-            <img src="${product.image_link}" alt="${product.title}" loading="lazy">
+            <img src="${product.image_link}" alt="${product.title}" loading="lazy" 
+                 onerror="this.src='https://via.placeholder.com/300?text=No+Image'">
         </div>
 
         <div class="card-body">
             <h3 class="card-title">${product.title}</h3>
 
             <div class="card-rating">
-                <div class="stars">
-                    ${generateStars(product.rating || 0)}
-                </div>
+                <div class="stars">${generateStars(product.rating || 0)}</div>
                 <span class="rating-text">(${product.review_count || 0} تقييم)</span>
             </div>
 
@@ -74,7 +117,7 @@ function createProductCard(product) {
                     </svg>
                     <span>${product.delivery_time || 'توصيل سريع'}</span>
                 </div>
-                <button class="view-btn" onclick="event.preventDefault();">عرض المنتج</button>
+                <button class="view-btn">عرض المنتج</button>
             </div>
         </div>
     `;
@@ -101,7 +144,7 @@ function generateStars(rating) {
     return stars;
 }
 
-// البحث والفلترة
+// البحث
 function setupSearch() {
     const searchInput = document.getElementById('search-input');
     if (searchInput) {
@@ -123,7 +166,7 @@ function setupSearch() {
     }
 }
 
-// تهيئة الصفحة
+// تهيئة
 document.addEventListener('DOMContentLoaded', () => {
     loadProducts();
     setupSearch();
