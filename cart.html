@@ -3,103 +3,311 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سلة التسوق - سوق مصر</title>
-    <meta name="description" content="عرض سلة التسوق الخاصة بك في سوق مصر">
-    <link rel="stylesheet" href="styles.css">
+    <title>السلة - سوق مصر</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+            padding: 10px 20px;
+            border-radius: 50px;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #f7fafc;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2d3748;
+            margin-bottom: 40px;
+        }
+
+        .cart-empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: #718096;
+        }
+
+        .cart-empty-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            display: grid;
+            grid-template-columns: 100px 1fr auto;
+            gap: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
+            background: #f7fafc;
+            border-radius: 16px;
+            align-items: center;
+        }
+
+        .cart-item-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .cart-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cart-item-info h3 {
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .cart-item-price {
+            color: #e53e3e;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-btn {
+            width: 32px;
+            height: 32px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .quantity-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .quantity-display {
+            min-width: 40px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .remove-btn {
+            background: #fc8181;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .remove-btn:hover {
+            background: #f56565;
+        }
+
+        .cart-summary {
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            color: white;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .summary-row.total {
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding-top: 15px;
+            border-top: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 18px;
+            background: white;
+            color: #667eea;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .cart-item {
+                grid-template-columns: 80px 1fr;
+                gap: 15px;
+            }
+
+            .cart-item-actions {
+                grid-column: 1 / -1;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <div class="container">
-                <a href="index.html" class="logo">🛒 سوق مصر</a>
-                <div class="nav-links">
-                    <a href="index.html">الرئيسية</a>
-                    <a href="cart.html" style="position: relative;">
-                        السلة
-                        <span class="cart-badge" id="cartBadge">0</span>
-                    </a>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <div class="container">
+        <a href="index.html" class="back-btn">← العودة للتسوق</a>
 
-    <main class="container" style="padding: 30px 20px; min-height: 60vh;">
-        <h1 style="font-size: 28px; margin-bottom: 20px; font-weight: 700; color: var(--text-dark);">🛒 سلة التسوق</h1>
-        
-        <div style="display: grid; grid-template-columns: 1fr 350px; gap: 20px;">
-            <!-- منتجات السلة -->
-            <div>
-                <div id="cartItems"></div>
-            </div>
+        <h1>🛒 سلة التسوق</h1>
 
-            <!-- ملخص الطلب -->
-            <div>
-                <div class="buy-box" style="position: sticky; top: 70px;">
-                    <h3 style="font-size: 18px; margin-bottom: 16px; font-weight: 700;">ملخص الطلب</h3>
-                    
-                    <div style="border-top: 1px solid var(--border-light); padding-top: 16px; margin-top: 16px;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px;">
-                            <span>المجموع الجزئي:</span>
-                            <span style="font-weight: 600;"><span id="totalPrice">0</span> جنيه</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px;">
-                            <span>الشحن:</span>
-                            <span style="font-weight: 600; color: var(--success-green);">60 جنيه</span>
-                        </div>
-                        <div style="border-top: 1px solid var(--border-light); padding-top: 12px; margin-top: 12px; display: flex; justify-content: space-between; font-size: 18px; font-weight: 700;">
-                            <span>الإجمالي:</span>
-                            <span style="color: var(--deal-red);"><span id="totalPriceWithShipping">0</span> جنيه</span>
-                        </div>
-                    </div>
-                    
-                    <button onclick="sendCartToWhatsApp()" class="btn btn-secondary" style="width: 100%; margin-top: 20px; padding: 14px; font-size: 16px;">
-                        📱 إتمام الطلب عبر واتساب
-                    </button>
-                    
-                    <button onclick="clearCart()" class="btn" style="width: 100%; margin-top: 12px; padding: 10px; font-size: 14px; background: white; border: 1px solid var(--border-light); color: var(--text-dark);">
-                        🗑️ إفراغ السلة
-                    </button>
-                    
-                    <div style="margin-top: 20px; padding: 16px; background: #F7F8F8; border-radius: 8px; text-align: center;">
-                        <div style="font-size: 14px; color: var(--success-green); font-weight: 600; margin-bottom: 8px;">✅ شحن مجاني للطلبات فوق 1000 جنيه</div>
-                        <div style="font-size: 13px; color: var(--text-gray);">التوصيل خلال 3 أيام عمل</div>
-                    </div>
+        <div id="cart-items">
+            <!-- سيتم ملؤها بالجافاسكريبت -->
+        </div>
+
+        <div id="cart-summary" style="display: none;">
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>المجموع الفرعي:</span>
+                    <span id="subtotal">0</span>
                 </div>
+                <div class="summary-row">
+                    <span>الشحن:</span>
+                    <span>100 جنيه</span>
+                </div>
+                <div class="summary-row total">
+                    <span>الإجمالي:</span>
+                    <span id="total">0</span>
+                </div>
+
+                <button class="checkout-btn" onclick="checkout()">
+                    إتمام الطلب عبر واتساب 💬
+                </button>
             </div>
         </div>
-    </main>
-
-    <footer>
-        <div class="container">
-            <div style="text-align: center;">
-                <h3 style="margin-bottom: 20px; font-size: 20px;">سوق مصر - متجرك الإلكتروني الموثوق</h3>
-                <div style="display: flex; justify-content: center; gap: 20px; margin-top: 16px; flex-wrap: wrap;">
-                    <a href="privacy-policy.html">سياسة الخصوصية</a>
-                    <a href="terms-of-service.html">الشروط والأحكام</a>
-                    <a href="refund-policy.html">سياسة الاسترجاع</a>
-                    <a href="shipping-policy.html">سياسة الشحن</a>
-                </div>
-                <p style="margin-top: 20px; color: #999; font-size: 14px;">© 2025 سوق مصر. جميع الحقوق محفوظة.</p>
-            </div>
-        </div>
-    </footer>
+    </div>
 
     <script src="cart.js"></script>
     <script>
-        function updateTotalWithShipping() {
-            const total = parseInt(document.getElementById('totalPrice').textContent) || 0;
-            const shipping = total >= 1000 ? 0 : 60;
-            document.getElementById('totalPriceWithShipping').textContent = total + shipping;
-        }
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            const observer = new MutationObserver(updateTotalWithShipping);
-            const totalElement = document.getElementById('totalPrice');
-            if (totalElement) {
-                observer.observe(totalElement, { childList: true, characterData: true, subtree: true });
+        function renderCart() {
+            const cartItems = document.getElementById('cart-items');
+            const cartSummary = document.getElementById('cart-summary');
+            const cart = JSON.parse(localStorage.getItem('sooq-masr-cart')) || [];
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="cart-empty">
+                        <div class="cart-empty-icon">🛒</div>
+                        <h2>السلة فارغة</h2>
+                        <p>لم تقم بإضافة أي منتجات بعد</p>
+                        <a href="index.html" class="back-btn" style="display: inline-block; margin-top: 20px;">
+                            ابدأ التسوق
+                        </a>
+                    </div>
+                `;
+                cartSummary.style.display = 'none';
+                return;
             }
-            updateTotalWithShipping();
-        });
+
+            cartItems.innerHTML = '';
+            let subtotal = 0;
+
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'cart-item';
+                itemDiv.innerHTML = `
+                    <div class="cart-item-image">
+                        <img src="${item.image}" alt="${item.title}">
+                    </div>
+                    <div class="cart-item-info">
+                        <h3>${item.title}</h3>
+                        <div class="cart-item-price">${item.price} جنيه</div>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity - 1})">-</button>
+                            <span class="quantity-display">${item.quantity}</span>
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity + 1})">+</button>
+                        </div>
+                    </div>
+                    <div class="cart-item-actions">
+                        <div style="text-align: center; margin-bottom: 10px;">
+                            <strong>${itemTotal} جنيه</strong>
+                        </div>
+                        <button class="remove-btn" onclick="removeFromCart(${item.id})">حذف</button>
+                    </div>
+                `;
+                cartItems.appendChild(itemDiv);
+            });
+
+            const total = subtotal + 100; // + شحن
+
+            document.getElementById('subtotal').textContent = subtotal + ' جنيه';
+            document.getElementById('total').textContent = total + ' جنيه';
+            cartSummary.style.display = 'block';
+        }
+
+        function updateQuantity(productId, newQuantity) {
+            if (newQuantity < 1) return;
+            shoppingCart.updateQuantity(productId, newQuantity);
+            renderCart();
+        }
+
+        function removeFromCart(productId) {
+            if (confirm('هل تريد حذف هذا المنتج من السلة؟')) {
+                shoppingCart.removeFromCart(productId);
+                renderCart();
+            }
+        }
+
+        function checkout() {
+            const orderDetails = shoppingCart.getOrderDetails();
+            const whatsappURL = `https://wa.me/201000000000?text=${orderDetails}`;
+            window.open(whatsappURL, '_blank');
+        }
+
+        // تحميل السلة عند فتح الصفحة
+        document.addEventListener('DOMContentLoaded', renderCart);
     </script>
 </body>
 </html>

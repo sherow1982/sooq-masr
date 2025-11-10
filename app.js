@@ -1,85 +1,83 @@
 
-// تحميل بيانات المنتجات من GitHub
+// نظام السلة
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+// تحديث عداد السلة
+function updateCartCount() {
+    const cartCount = document.getElementById('cart-count');
+    if (cartCount) {
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartCount.textContent = totalItems;
+        cartCount.style.display = totalItems > 0 ? 'flex' : 'none';
+    }
+}
+
+// تحميل المنتجات
 const PRODUCTS_JSON_URL = 'https://raw.githubusercontent.com/sherow1982/sooq-masr/main/products.json';
 const PRODUCTS_PAGES_BASE = 'products-pages/';
 
-// دالة تنظيف اسم الملف (مطابقة للـ Python)
 function cleanFilename(text) {
-    // استبدال الأحرف الممنوعة في Windows
     const forbidden = {
-        '<': '‹',
-        '>': '›',
-        ':': '∶',
-        '"': '＂',
-        '/': '⁄',
-        '\\': '⧹',
-        '|': '｜',
-        '?': '？',
-        '*': '✱'
+        '<': '‹', '>': '›', ':': '∶', '"': '＂',
+        '/': '⁄', '\\': '⧹', '|': '｜', '?': '？', '*': '✱'
     };
 
     let cleaned = text;
     for (let [char, replacement] of Object.entries(forbidden)) {
-        cleaned = cleaned.replace(new RegExp(char.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), replacement);
+        cleaned = cleaned.split(char).join(replacement);
     }
 
-    // استبدال المسافات بشرطات
-    cleaned = cleaned.replace(/\s+/g, '-').trim();
-
-    // إزالة النقاط من النهاية
-    cleaned = cleaned.replace(/\.+$/, '');
+    cleaned = cleaned.replace(/\s+/g, '-');
+    cleaned = cleaned.replace(/[()]/g, '');
+    cleaned = cleaned.replace(/-+/g, '-');
+    cleaned = cleaned.replace(/^-+|-+$/g, '');
 
     return cleaned;
 }
 
-// إنشاء اسم الملف الصحيح
 function getProductPageFilename(product) {
     const cleanSlug = cleanFilename(product.slug);
     let filename = `product-${product.id}-${cleanSlug}.html`;
 
-    // إذا كان الاسم طويل جداً، نقصره
     if (filename.length > 200) {
-        const shortSlug = cleanSlug.substring(0, 100);
+        const shortSlug = cleanSlug.substring(0, 80);
         filename = `product-${product.id}-${shortSlug}.html`;
     }
 
     return filename;
 }
 
-// تحميل المنتجات
 async function loadProducts() {
     try {
         const response = await fetch(PRODUCTS_JSON_URL);
         const products = await response.json();
         displayProducts(products);
+        updateCartCount();
     } catch (error) {
-        console.error('خطأ في تحميل المنتجات:', error);
+        console.error('خطأ:', error);
         document.getElementById('products-container').innerHTML = 
-            '<p class="error-msg">عذراً، حدث خطأ في تحميل المنتجات. يرجى المحاولة لاحقاً.</p>';
+            '<p class="error-msg">عذراً، حدث خطأ في تحميل المنتجات</p>';
     }
 }
 
-// عرض المنتجات
 function displayProducts(products) {
     const container = document.getElementById('products-container');
     container.innerHTML = '';
 
     products.forEach(product => {
-        const productCard = createProductCard(product);
-        container.appendChild(productCard);
+        const card = createProductCard(product);
+        container.appendChild(card);
     });
 }
 
-// إنشاء بطاقة منتج احترافية
 function createProductCard(product) {
     const card = document.createElement('a');
     card.className = 'product-card';
 
-    // استخدام اسم الملف الصحيح والنظيف
     const filename = getProductPageFilename(product);
     card.href = `${PRODUCTS_PAGES_BASE}${filename}`;
+    card.target = '_blank'; // ✅ فتح في تبويب جديد
 
-    // حساب نسبة الخصم
     const discount = product.price && product.sale_price ? 
         Math.round(((product.price - product.sale_price) / product.price) * 100) : 0;
 
@@ -90,16 +88,15 @@ function createProductCard(product) {
         </div>
 
         <div class="card-image">
-            <img src="${product.image_link}" alt="${product.title}" loading="lazy" onerror="this.src='https://via.placeholder.com/300?text=No+Image'">
+            <img src="${product.image_link}" alt="${product.title}" loading="lazy" 
+                 onerror="this.src='https://via.placeholder.com/300?text=No+Image'">
         </div>
 
         <div class="card-body">
             <h3 class="card-title">${product.title}</h3>
 
             <div class="card-rating">
-                <div class="stars">
-                    ${generateStars(product.rating || 0)}
-                </div>
+                <div class="stars">${generateStars(product.rating || 0)}</div>
                 <span class="rating-text">(${product.review_count || 0} تقييم)</span>
             </div>
 
@@ -128,7 +125,6 @@ function createProductCard(product) {
     return card;
 }
 
-// توليد النجوم
 function generateStars(rating) {
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 >= 0.5;
@@ -147,7 +143,6 @@ function generateStars(rating) {
     return stars;
 }
 
-// البحث والفلترة
 function setupSearch() {
     const searchInput = document.getElementById('search-input');
     if (searchInput) {
@@ -169,7 +164,6 @@ function setupSearch() {
     }
 }
 
-// تهيئة الصفحة
 document.addEventListener('DOMContentLoaded', () => {
     loadProducts();
     setupSearch();

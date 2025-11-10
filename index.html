@@ -1,92 +1,0 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="سوق مصر - أفضل المنتجات بأسعار تنافسية وجودة عالية. توصيل سريع لجميع أنحاء مصر.">
-    <meta name="keywords" content="سوق مصر, تسوق, منتجات, عروض, خصومات">
-    <title>سوق مصر - أفضل المنتجات بأسعار منافسة</title>
-
-    <!-- استيراد الخطوط العربية -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-
-    <!-- الأنماط -->
-    <link rel="stylesheet" href="style.css">
-
-    <style>
-        body {
-            font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <!-- الرأس -->
-        <header>
-            <h1>🛒 سوق مصر - أفضل المنتجات بأسعار منافسة</h1>
-            <p style="text-align: center; color: #718096; margin-bottom: 30px;">
-                اكتشف مجموعة واسعة من المنتجات عالية الجودة بأسعار لا تقاوم
-            </p>
-        </header>
-
-        <!-- شريط البحث -->
-        <div class="search-container">
-            <input 
-                type="text" 
-                id="search-input" 
-                placeholder="🔍 ابحث عن منتجك المفضل..."
-                autocomplete="off"
-            >
-        </div>
-
-        <!-- معلومات إضافية -->
-        <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; flex-wrap: wrap;">
-            <div style="text-align: center;">
-                <div style="font-size: 2rem;">🚚</div>
-                <div style="font-size: 0.9rem; color: #4a5568;">توصيل سريع</div>
-            </div>
-            <div style="text-align: center;">
-                <div style="font-size: 2rem;">💳</div>
-                <div style="font-size: 0.9rem; color: #4a5568;">دفع آمن</div>
-            </div>
-            <div style="text-align: center;">
-                <div style="font-size: 2rem;">✨</div>
-                <div style="font-size: 0.9rem; color: #4a5568;">جودة مضمونة</div>
-            </div>
-            <div style="text-align: center;">
-                <div style="font-size: 2rem;">🎁</div>
-                <div style="font-size: 0.9rem; color: #4a5568;">عروض حصرية</div>
-            </div>
-        </div>
-
-        <!-- حاوية المنتجات -->
-        <div id="products-container">
-            <!-- سيتم ملء المنتجات هنا تلقائياً عبر JavaScript -->
-            <div style="text-align: center; padding: 60px 20px; grid-column: 1/-1;">
-                <div class="loading-spinner" style="display: inline-block; width: 50px; height: 50px; border: 5px solid #f3f3f3; border-top: 5px solid #667eea; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-                <p style="margin-top: 20px; color: #718096;">جاري تحميل المنتجات...</p>
-            </div>
-        </div>
-
-        <!-- الذيل -->
-        <footer style="margin-top: 60px; padding-top: 30px; border-top: 2px solid #e2e8f0; text-align: center; color: #718096;">
-            <p>© 2025 سوق مصر - جميع الحقوق محفوظة</p>
-            <p style="margin-top: 10px; font-size: 0.9rem;">
-                للاستفسار: <a href="mailto:sherow1982@gmail.com" style="color: #667eea; text-decoration: none;">sherow1982@gmail.com</a>
-            </p>
-        </footer>
-    </div>
-
-    <!-- السكريبت -->
-    <script src="app.js"></script>
-
-    <style>
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
-</body>
-</html>
