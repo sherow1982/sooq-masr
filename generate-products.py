@@ -233,28 +233,33 @@ def get_css():
             cursor: pointer;
             transition: all 0.3s;
             text-align: center;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
-        .btn-primary {
+        .btn-cart {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             box-shadow: 0 10px 25px rgba(102,126,234,0.4);
         }
 
-        .btn-primary:hover {
+        .btn-cart:hover {
             transform: translateY(-2px);
             box-shadow: 0 15px 35px rgba(102,126,234,0.5);
         }
 
-        .btn-secondary {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
             color: white;
-            box-shadow: 0 10px 25px rgba(245,87,108,0.4);
+            box-shadow: 0 10px 25px rgba(37,211,102,0.4);
         }
 
-        .btn-secondary:hover {
+        .btn-whatsapp:hover {
             transform: translateY(-2px);
-            box-shadow: 0 15px 35px rgba(245,87,108,0.5);
+            box-shadow: 0 15px 35px rgba(37,211,102,0.5);
         }
 
         .reviews-section {
@@ -435,6 +440,17 @@ def generate_product_page(product):
     discount = int((1 - product['sale_price'] / product['price']) * 100)
     save_amount = product['price'] - product['sale_price']
     
+    # رسالة واتساب
+    whatsapp_message = f'''مرحباً، أريد طلب المنتج التالي:
+
+📦 *{product['title']}*
+💰 السعر: {product['sale_price']} جنيه
+🆔 كود المنتج: {product['id']}
+
+من فضلك أريد إتمام الطلب.'''
+    
+    whatsapp_link = f"https://wa.me/201110760081?text={whatsapp_message.replace(' ', '%20').replace('\n', '%0A')}"
+    
     html = f'''<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -498,12 +514,12 @@ def generate_product_page(product):
                 </div>
 
                 <div class="action-buttons">
-                    <button class="btn btn-primary" onclick="addToCart()">
+                    <button class="btn btn-cart" onclick="addToCart({product['id']}, '{product['title']}', {product['sale_price']}, '{product['image_link']}')">
                         🛒 أضف للسلة
                     </button>
-                    <button class="btn btn-secondary" onclick="buyNow()">
-                        ⚡ اشتر الآن
-                    </button>
+                    <a href="{whatsapp_link}" target="_blank" class="btn btn-whatsapp">
+                        💬 اطلب عبر واتساب
+                    </a>
                 </div>
             </div>
         </div>
@@ -521,12 +537,32 @@ def generate_product_page(product):
     </div>
 
     <script>
-        function addToCart() {{
-            alert('تمت إضافة المنتج للسلة! 🛒');
-        }}
-
-        function buyNow() {{
-            alert('جاري تحويلك لصفحة الدفع... ⚡');
+        function addToCart(id, title, price, image) {{
+            // جلب السلة من localStorage
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            
+            // البحث عن المنتج في السلة
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {{
+                existingItem.quantity += 1;
+            }} else {{
+                cart.push({{
+                    id: id,
+                    title: title,
+                    price: price,
+                    image: image,
+                    quantity: 1
+                }});
+            }}
+            
+            // حفظ السلة
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // إظهار رسالة وتحويل للسلة
+            if (confirm('تمت إضافة المنتج للسلة! \\n\\nهل تريد الذهاب للسلة الآن؟')) {{
+                window.location.href = '../cart.html';
+            }}
         }}
     </script>
 </body>
