@@ -97,25 +97,15 @@
             border-color: transparent;
         }
         
-        /* زر تحميل المزيد */
-        .load-more-btn {
-            display: block;
-            margin: 40px auto;
-            padding: 15px 50px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-        }
-        
-        .load-more-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6);
+        /* عداد النتائج */
+        .results-count {
+            text-align: center;
+            padding: 15px;
+            margin: 20px 0;
+            background: var(--color-secondary);
+            border-radius: var(--radius-lg);
+            color: var(--color-text);
+            font-weight: var(--font-weight-medium);
         }
     </style>
 </head>
@@ -141,16 +131,34 @@
             <input 
                 type="text" 
                 id="search-input" 
-                placeholder="🔍 ابحث عن منتجك المفضل..."
+                placeholder="🔍 ابحث عن منتجك المفضل... (مثال: جلد طبيعي، أحذية، حقائب)"
                 autocomplete="off"
             >
         </div>
         
         <!-- فئات المنتجات -->
         <div class="categories" id="categories">
-            <div style="text-align: center; padding: 20px; width: 100%;">
-                <div style="display: inline-block; width: 30px; height: 30px; border: 3px solid #f3f3f3; border-top: 3px solid #667eea; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-            </div>
+            <button class="category-btn active" onclick="filterByCategory('all')">
+                🛍️ الكل
+            </button>
+            <button class="category-btn" onclick="filterByCategory('Health & Beauty')">
+                💄 الصحة والجمال
+            </button>
+            <button class="category-btn" onclick="filterByCategory('Home & Garden')">
+                🏠 المنزل والحديقة
+            </button>
+            <button class="category-btn" onclick="filterByCategory('Apparel & Accessories')">
+                👔 الملابس والإكسسوارات
+            </button>
+            <button class="category-btn" onclick="filterByCategory('احذية')">
+                👟 أحذية
+            </button>
+            <button class="category-btn" onclick="filterByCategory('حقائب')">
+                👜 حقائب
+            </button>
+            <button class="category-btn" onclick="filterByCategory('Electronics')">
+                📱 إلكترونيات
+            </button>
         </div>
         
         <!-- معلومات إضافية -->
@@ -181,11 +189,6 @@
             </div>
         </div>
         
-        <!-- زر تحميل المزيد -->
-        <button class="load-more-btn" id="load-more-btn" onclick="loadMoreProducts()" style="display: none;">
-            تحميل المزيد
-        </button>
-        
         <!-- الذيل -->
         <footer style="margin-top: 60px; padding-top: 30px; border-top: 2px solid #e2e8f0; text-align: center; color: #718096;">
             <p>© 2025 سوق مصر - جميع الحقوق محفوظة</p>
@@ -195,119 +198,31 @@
         </footer>
     </div>
     
+    <!-- تحميل الملفات -->
     <script src="cart.js"></script>
     <script src="app.js"></script>
     
+    <!-- أنيميشن التحميل -->
+    <style>
+        @keyframes spin { 
+            0% { transform: rotate(0deg); } 
+            100% { transform: rotate(360deg); } 
+        }
+    </style>
+    
+    <!-- تفعيل تغيير الفئات النشطة -->
     <script>
-        let allProducts = [];
-        let allCategories = [];
-        let displayedProducts = 0;
-        const productsPerLoad = 12;
-        let currentCategory = 'all';
-        
-        // تحميل الفئات
-        async function loadCategories() {
-            try {
-                const response = await fetch('https://raw.githubusercontent.com/sherow1982/sooq-masr/main/categories.json');
-                allCategories = await response.json();
-                displayCategories();
-            } catch (error) {
-                console.error('خطأ في تحميل الفئات:', error);
-                // فئات افتراضية في حالة فشل التحميل
-                allCategories = [
-                    {id: 'all', name: 'الكل', icon: '🛍️', filter: 'all'},
-                    {id: 'health-beauty', name: 'الصحة والجمال', icon: '💄', filter: 'Health & Beauty'},
-                    {id: 'home-garden', name: 'المنزل والحديقة', icon: '🏠', filter: 'Home & Garden'}
-                ];
-                displayCategories();
+        function filterByCategory(category) {
+            if (window.filterByCategory) {
+                window.filterByCategory(category);
             }
-        }
-        
-        // عرض الفئات
-        function displayCategories() {
-            const container = document.getElementById('categories');
-            container.innerHTML = '';
             
-            allCategories.forEach(category => {
-                const btn = document.createElement('button');
-                btn.className = 'category-btn' + (category.id === 'all' ? ' active' : '');
-                btn.innerHTML = `${category.icon} ${category.name}`;
-                btn.onclick = () => filterByCategory(category.filter, btn);
-                container.appendChild(btn);
+            // تحديث الأزرار النشطة
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
             });
+            event.target.classList.add('active');
         }
-        
-        // تحميل المنتجات
-        async function loadProducts() {
-            try {
-                const response = await fetch('https://raw.githubusercontent.com/sherow1982/sooq-masr/main/products.json');
-                allProducts = await response.json();
-                displayProducts();
-                updateCartCount();
-            } catch (error) {
-                console.error('خطأ:', error);
-                document.getElementById('products-container').innerHTML = '<p class="error-msg">عذراً، حدث خطأ</p>';
-            }
-        }
-        
-        // عرض المنتجات
-        function displayProducts(reset = true) {
-            const container = document.getElementById('products-container');
-            if (reset) { 
-                container.innerHTML = ''; 
-                displayedProducts = 0; 
-            }
-            
-            const filtered = currentCategory === 'all' 
-                ? allProducts 
-                : allProducts.filter(p => p.google_product_category && p.google_product_category.includes(currentCategory));
-            
-            const toShow = filtered.slice(displayedProducts, displayedProducts + productsPerLoad);
-            
-            toShow.forEach(product => {
-                const card = createProductCard(product);
-                container.appendChild(card);
-            });
-            
-            displayedProducts += toShow.length;
-            document.getElementById('load-more-btn').style.display = displayedProducts < filtered.length ? 'block' : 'none';
-        }
-        
-        // تحميل المزيد
-        function loadMoreProducts() { 
-            displayProducts(false); 
-        }
-        
-        // تصفية حسب الفئة
-        function filterByCategory(category, button) {
-            currentCategory = category;
-            displayProducts(true);
-            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-        }
-        
-        // تحديث عداد السلة
-        function updateCartCount() {
-            const cart = JSON.parse(localStorage.getItem('sooq-masr-cart')) || [];
-            const cartCount = document.getElementById('cart-count');
-            const total = cart.reduce((sum, item) => sum + item.quantity, 0);
-            if (cartCount) {
-                cartCount.textContent = total;
-                cartCount.style.display = total > 0 ? 'flex' : 'none';
-            }
-        }
-        
-        // تشغيل عند التحميل
-        document.addEventListener('DOMContentLoaded', () => {
-            loadCategories();
-            loadProducts();
-            setInterval(updateCartCount, 1000);
-        });
-        
-        // أنيميشن التحميل
-        const style = document.createElement('style');
-        style.textContent = '@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }';
-        document.head.appendChild(style);
     </script>
 </body>
 </html>
