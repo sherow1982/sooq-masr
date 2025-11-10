@@ -5,17 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="سوق مصر - أفضل المنتجات بأسعار تنافسية وجودة عالية. توصيل سريع لجميع أنحاء مصر.">
     <title>سوق مصر - أفضل المنتجات بأسعار منافسة</title>
-
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-
+    
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛒</text></svg>">
-
+    
     <style>
         body { font-family: 'Cairo', sans-serif; }
-
+        
+        /* أيقونة السلة العائمة */
         .cart-icon {
             position: fixed;
             top: 20px;
@@ -34,14 +35,17 @@
             transition: all 0.3s;
             text-decoration: none;
         }
-
+        
         .cart-icon:hover {
             transform: scale(1.1);
             box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
         }
-
-        .cart-icon svg { width: 28px; height: 28px; }
-
+        
+        .cart-icon svg {
+            width: 28px;
+            height: 28px;
+        }
+        
         #cart-count {
             position: absolute;
             top: -5px;
@@ -57,15 +61,17 @@
             font-size: 0.75rem;
             font-weight: bold;
         }
-
+        
+        /* فئات المنتجات */
         .categories {
             display: flex;
             gap: 15px;
             margin: 30px 0;
             overflow-x: auto;
             padding: 10px 0;
+            flex-wrap: wrap;
         }
-
+        
         .category-btn {
             padding: 12px 24px;
             background: white;
@@ -78,19 +84,20 @@
             font-weight: 600;
             color: #4a5568;
         }
-
+        
         .category-btn:hover {
             background: #f7fafc;
             border-color: #667eea;
             color: #667eea;
         }
-
+        
         .category-btn.active {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border-color: transparent;
         }
-
+        
+        /* زر تحميل المزيد */
         .load-more-btn {
             display: block;
             margin: 40px auto;
@@ -105,7 +112,7 @@
             transition: all 0.3s;
             box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
         }
-
+        
         .load-more-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6);
@@ -113,13 +120,14 @@
     </style>
 </head>
 <body>
+    <!-- أيقونة السلة العائمة -->
     <a href="cart.html" class="cart-icon">
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
         </svg>
         <span id="cart-count">0</span>
     </a>
-
+    
     <div class="container">
         <header>
             <h1>🛒 سوق مصر - أفضل المنتجات بأسعار منافسة</h1>
@@ -127,34 +135,60 @@
                 اكتشف مجموعة واسعة من المنتجات عالية الجودة بأسعار لا تقاوم
             </p>
         </header>
-
+        
+        <!-- شريط البحث -->
         <div class="search-container">
-            <input type="text" id="search-input" placeholder="🔍 ابحث عن منتجك المفضل..." autocomplete="off">
+            <input 
+                type="text" 
+                id="search-input" 
+                placeholder="🔍 ابحث عن منتجك المفضل..."
+                autocomplete="off"
+            >
         </div>
-
+        
+        <!-- فئات المنتجات -->
         <div class="categories" id="categories">
             <button class="category-btn active" onclick="filterByCategory('all')">الكل</button>
             <button class="category-btn" onclick="filterByCategory('Health & Beauty')">الصحة والجمال</button>
             <button class="category-btn" onclick="filterByCategory('Home & Garden')">المنزل والحديقة</button>
+            <button class="category-btn" onclick="filterByCategory('Hair Care')">العناية بالشعر</button>
             <button class="category-btn" onclick="filterByCategory('Footwear')">الأحذية</button>
         </div>
-
+        
+        <!-- معلومات إضافية -->
         <div style="display: flex; justify-content: center; gap: 30px; margin: 30px 0; flex-wrap: wrap;">
-            <div style="text-align: center;"><div style="font-size: 2rem;">🚚</div><div style="font-size: 0.9rem; color: #4a5568;">توصيل سريع</div></div>
-            <div style="text-align: center;"><div style="font-size: 2rem;">💳</div><div style="font-size: 0.9rem; color: #4a5568;">دفع آمن</div></div>
-            <div style="text-align: center;"><div style="font-size: 2rem;">✨</div><div style="font-size: 0.9rem; color: #4a5568;">جودة مضمونة</div></div>
-            <div style="text-align: center;"><div style="font-size: 2rem;">🎁</div><div style="font-size: 0.9rem; color: #4a5568;">عروض حصرية</div></div>
+            <div style="text-align: center;">
+                <div style="font-size: 2rem;">🚚</div>
+                <div style="font-size: 0.9rem; color: #4a5568;">توصيل سريع</div>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 2rem;">💳</div>
+                <div style="font-size: 0.9rem; color: #4a5568;">دفع آمن</div>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 2rem;">✨</div>
+                <div style="font-size: 0.9rem; color: #4a5568;">جودة مضمونة</div>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 2rem;">🎁</div>
+                <div style="font-size: 0.9rem; color: #4a5568;">عروض حصرية</div>
+            </div>
         </div>
-
+        
+        <!-- حاوية المنتجات -->
         <div id="products-container">
             <div style="text-align: center; padding: 60px 20px; grid-column: 1/-1;">
                 <div style="display: inline-block; width: 50px; height: 50px; border: 5px solid #f3f3f3; border-top: 5px solid #667eea; border-radius: 50%; animation: spin 1s linear infinite;"></div>
                 <p style="margin-top: 20px; color: #718096;">جاري تحميل المنتجات...</p>
             </div>
         </div>
-
-        <button class="load-more-btn" id="load-more-btn" onclick="loadMoreProducts()" style="display: none;">تحميل المزيد</button>
-
+        
+        <!-- زر تحميل المزيد -->
+        <button class="load-more-btn" id="load-more-btn" onclick="loadMoreProducts()" style="display: none;">
+            تحميل المزيد
+        </button>
+        
+        <!-- الذيل -->
         <footer style="margin-top: 60px; padding-top: 30px; border-top: 2px solid #e2e8f0; text-align: center; color: #718096;">
             <p>© 2025 سوق مصر - جميع الحقوق محفوظة</p>
             <p style="margin-top: 10px; font-size: 0.9rem;">
@@ -162,16 +196,16 @@
             </p>
         </footer>
     </div>
-
+    
     <script src="cart.js"></script>
     <script src="app.js"></script>
-
+    
     <script>
         let allProducts = [];
         let displayedProducts = 0;
         const productsPerLoad = 12;
         let currentCategory = 'all';
-
+        
         async function loadProducts() {
             try {
                 const response = await fetch('https://raw.githubusercontent.com/sherow1982/sooq-masr/main/products.json');
@@ -183,32 +217,32 @@
                 document.getElementById('products-container').innerHTML = '<p class="error-msg">عذراً، حدث خطأ</p>';
             }
         }
-
+        
         function displayProducts(reset = true) {
             const container = document.getElementById('products-container');
             if (reset) { container.innerHTML = ''; displayedProducts = 0; }
-
+            
             const filtered = currentCategory === 'all' ? allProducts : allProducts.filter(p => p.google_product_category && p.google_product_category.includes(currentCategory));
             const toShow = filtered.slice(displayedProducts, displayedProducts + productsPerLoad);
-
+            
             toShow.forEach(product => {
                 const card = createProductCard(product);
                 container.appendChild(card);
             });
-
+            
             displayedProducts += toShow.length;
             document.getElementById('load-more-btn').style.display = displayedProducts < filtered.length ? 'block' : 'none';
         }
-
+        
         function loadMoreProducts() { displayProducts(false); }
-
+        
         function filterByCategory(category) {
             currentCategory = category;
             displayProducts(true);
             document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
         }
-
+        
         function updateCartCount() {
             const cart = JSON.parse(localStorage.getItem('sooq-masr-cart')) || [];
             const cartCount = document.getElementById('cart-count');
@@ -218,12 +252,12 @@
                 cartCount.style.display = total > 0 ? 'flex' : 'none';
             }
         }
-
+        
         document.addEventListener('DOMContentLoaded', () => {
             loadProducts();
             setInterval(updateCartCount, 1000);
         });
-
+        
         const style = document.createElement('style');
         style.textContent = '@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }';
         document.head.appendChild(style);
