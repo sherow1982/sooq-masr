@@ -1,173 +1,130 @@
-// app.js - إدارة المنتجات لمتجر سوّق مصر
 
-let allProducts = [];
-let filteredProducts = [];
-let currentPage = 1;
-const productsPerPage = 12;
+// تحميل بيانات المنتجات من GitHub
+const PRODUCTS_JSON_URL = 'https://raw.githubusercontent.com/sherow1982/sooq-masr/main/products.json';
+const PRODUCTS_PAGES_BASE = 'https://sherow1982.github.io/sooq-masr/products-pages/';
 
-// عند تحميل الصفحة
-window.addEventListener('DOMContentLoaded', () => {
-    loadProducts();
-    setupEventListeners();
-});
-
+// تحميل المنتجات
 async function loadProducts() {
     try {
-        const response = await fetch('products.json');
-        const data = await response.json();
-        if (!Array.isArray(data)) throw new Error('البيانات ليست Array');
-        allProducts = data;
-        filteredProducts = [...allProducts];
-        renderCategoryFilter(allProducts);
-        displayProducts();
-        updateProductCount();
+        const response = await fetch(PRODUCTS_JSON_URL);
+        const products = await response.json();
+        displayProducts(products);
     } catch (error) {
-        showError('تعذر تحميل المنتجات، حاول لاحقاً');
+        console.error('خطأ في تحميل المنتجات:', error);
+        document.getElementById('products-container').innerHTML = '<p class="error-msg">عذراً، حدث خطأ في تحميل المنتجات. يرجى المحاولة لاحقاً.</p>';
     }
 }
 
-// دالة لتحويل عنوان المنتج إلى اسم الملف المطابق
-function getProductPageFileName(product) {
-    // إنشاء اسم الملف بناءً على ID والعنوان
-    // مثال: product-1-جهاز-ديناميك-لإعادة-تأهيل-اليد-ايسر.html
-    
-    let title = product.title;
-    
-    // استبدال المسافات بشرطات
-    title = title.replace(/\s+/g, '-');
-    
-    // إزالة الأحرف الخاصة ماعدا الحروف العربية والإنجليزية والأرقام والشرطات
-    title = title.replace(/[^\u0600-\u06FFa-zA-Z0-9\-]/g, '');
-    
-    // إزالة الشرطات المتعددة المتتالية
-    title = title.replace(/-+/g, '-');
-    
-    // إزالة الشرطات من البداية والنهاية
-    title = title.replace(/^-|-$/g, '');
-    
-    return `products-pages/product-${product.id}-${title}.html`;
-}
+// عرض المنتجات
+function displayProducts(products) {
+    const container = document.getElementById('products-container');
+    container.innerHTML = '';
 
-function displayProducts() {
-    const productsContainer = document.getElementById('products-container');
-    productsContainer.innerHTML = '';
-    const startIndex = (currentPage - 1) * productsPerPage;
-    const endIndex = startIndex + productsPerPage;
-    const productsToShow = filteredProducts.slice(startIndex, endIndex);
-    
-    if (productsToShow.length === 0) {
-        productsContainer.innerHTML = '<div class="no-products">لا توجد منتجات بهذا البحث</div>';
-        updatePagination();
-        return;
-    }
-    
-    productsToShow.forEach(product => {
-        const card = document.createElement('div');
-        card.className = 'product-card';
-        
-        // ربط البطاقة بصفحة المنتج الصحيحة في مجلد products-pages
-        const productPageURL = getProductPageFileName(product);
-        card.onclick = () => window.location.href = productPageURL;
-        
-        card.innerHTML = `
-        ${product.google_product_category ? `<div class="product-category">${product.google_product_category.split('>').pop().trim()}</div>` : ''}
-         ${(product.sale_price && product.price > product.sale_price) ? `<div class="discount-badge">-${Math.round((product.price-product.sale_price)/product.price*100)}%</div>` : ''}
-            <div class="product-image">
-                <img src="${product.image_link}" alt="${product.title}" loading="lazy">
-            </div>
-            <div class="product-info">
-                <h3 class="product-title">${product.title}</h3>
-                <div class="product-rating">
-                    ${generateStars(product.rating||0)}
-                    <span class="review-count">(${product.review_count||0})</span>
-                </div>
-                <div class="product-price">
-                 ${(product.sale_price && product.sale_price < product.price) ? `<span class="old-price">${product.price} جنيه</span> <span class="current-price">${product.sale_price} جنيه</span>` : `<span class="current-price">${product.price} جنيه</span>`}
-                </div>
-                <p class="product-description">${truncateText(product.description||'', 80)}</p>
-            </div>
-        `;
-        productsContainer.appendChild(card);
+    products.forEach(product => {
+        const productCard = createProductCard(product);
+        container.appendChild(productCard);
     });
-    updatePagination();
 }
 
+// إنشاء بطاقة منتج احترافية
+function createProductCard(product) {
+    const card = document.createElement('a');
+    card.className = 'product-card';
+    card.href = `${PRODUCTS_PAGES_BASE}${product.slug}.html`;
+    card.target = '_blank';
+
+    // حساب نسبة الخصم
+    const discount = product.price && product.sale_price ? 
+        Math.round(((product.price - product.sale_price) / product.price) * 100) : 0;
+
+    card.innerHTML = `
+        <div class="card-badge-container">
+            ${discount > 0 ? `<span class="discount-badge">خصم ${discount}%</span>` : ''}
+            ${product.rating >= 4.5 ? '<span class="bestseller-badge">الأكثر مبيعاً</span>' : ''}
+        </div>
+
+        <div class="card-image">
+            <img src="${product.image_link}" alt="${product.title}" loading="lazy">
+        </div>
+
+        <div class="card-body">
+            <h3 class="card-title">${product.title}</h3>
+
+            <div class="card-rating">
+                <div class="stars">
+                    ${generateStars(product.rating || 0)}
+                </div>
+                <span class="rating-text">(${product.review_count || 0} تقييم)</span>
+            </div>
+
+            <p class="card-description">${product.description || ''}</p>
+
+            <div class="card-price-container">
+                ${product.price && product.sale_price ? 
+                    `<span class="original-price">${product.price} جنيه</span>
+                     <span class="sale-price">${product.sale_price} جنيه</span>` :
+                    `<span class="sale-price">${product.sale_price || product.price} جنيه</span>`
+                }
+            </div>
+
+            <div class="card-footer">
+                <div class="shipping-info">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/>
+                    </svg>
+                    <span>${product.delivery_time || 'توصيل سريع'}</span>
+                </div>
+                <button class="view-btn" onclick="event.preventDefault();">عرض المنتج</button>
+            </div>
+        </div>
+    `;
+
+    return card;
+}
+
+// توليد النجوم
 function generateStars(rating) {
-    const full = Math.floor(rating);
-    const half = rating % 1 >= 0.5;
-    return '<span class="stars">' + '★'.repeat(full) + (half?'☆':'') + '☆'.repeat(5-full-(half?1:0)) + '</span>';
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    let stars = '';
+
+    for (let i = 0; i < fullStars; i++) {
+        stars += '<span class="star filled">★</span>';
+    }
+    if (hasHalfStar) {
+        stars += '<span class="star half">★</span>';
+    }
+    for (let i = fullStars + (hasHalfStar ? 1 : 0); i < 5; i++) {
+        stars += '<span class="star">★</span>';
+    }
+
+    return stars;
 }
 
-function truncateText(str, n) {
-    return (str.length > n ? str.slice(0, n-1) + '...' : str);
-}
-
-function updateProductCount() {
-    const elem = document.getElementById('product-count');
-    if (elem) elem.textContent = `عرض ${filteredProducts.length} منتج`;
-}
-
-function updatePagination() {
-    const pages = Math.ceil(filteredProducts.length / productsPerPage);
-    const pag = document.getElementById('pagination');
-    if (!pag) return;
-    if (pages <= 1) { pag.innerHTML = ''; return; }
-    let html = `<button onclick="changePage(${currentPage-1})" ${currentPage===1?'disabled':''}>السابق</button>`;
-    for (let i = 1; i <= pages; i++)
-        html += `<button onclick="changePage(${i})" class="${i===currentPage?'active':''}">${i}</button>`;
-    html += `<button onclick="changePage(${currentPage+1})" ${currentPage===pages?'disabled':''}>التالي</button>`;
-    pag.innerHTML = html;
-}
-
-function changePage(page) {
-    const pages = Math.ceil(filteredProducts.length / productsPerPage);
-    if (page < 1 || page > pages) return;
-    currentPage = page;
-    displayProducts();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function setupEventListeners() {
+// البحث والفلترة
+function setupSearch() {
     const searchInput = document.getElementById('search-input');
     if (searchInput) {
-        searchInput.addEventListener('input', e => applyFilters());
-    }
-    const sortSelect = document.getElementById('sort-select');
-    if (sortSelect) {
-        sortSelect.addEventListener('change', e => applyFilters());
-    }
-    const catFilter = document.getElementById('category-filter');
-    if (catFilter) {
-        catFilter.addEventListener('change', () => applyFilters());
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.product-card');
+
+            cards.forEach(card => {
+                const title = card.querySelector('.card-title').textContent.toLowerCase();
+                const description = card.querySelector('.card-description').textContent.toLowerCase();
+
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
     }
 }
 
-function renderCategoryFilter(products) {
-    const select = document.getElementById('category-filter');
-    if (!select) return;
-    const cats = Array.from(new Set(products.map(p=>p.google_product_category && p.google_product_category.split('>').pop().trim()).filter(Boolean)));
-    select.innerHTML = `<option value="">جميع الفئات</option>` + cats.map(cat=>`<option value="${cat}">${cat}</option>`).join('');
-}
-
-function applyFilters() {
-    const searchVal = (document.getElementById('search-input')||{}).value || '';
-    const sortVal   = (document.getElementById('sort-select')||{}).value || '';
-    const catVal    = (document.getElementById('category-filter')||{}).value || '';
-    filteredProducts = allProducts.filter(product => {
-        let matchesSearch = !searchVal || product.title.toLowerCase().includes(searchVal.toLowerCase()) || (product.description && product.description.toLowerCase().includes(searchVal.toLowerCase()));
-        let matchesCat = !catVal || (product.google_product_category && product.google_product_category.split('>').pop().trim() === catVal);
-        return matchesSearch && matchesCat;
-    });
-    if (sortVal === 'price-asc') filteredProducts.sort((a,b)=> (a.sale_price||a.price)-(b.sale_price||b.price));
-    else if (sortVal === 'price-desc') filteredProducts.sort((a,b)=> (b.sale_price||b.price)-(a.sale_price||a.price));
-    else if (sortVal === 'rating') filteredProducts.sort((a,b)=>(b.rating||0)-(a.rating||0));
-    else if (sortVal === 'newest') filteredProducts.sort((a,b)=>b.id-a.id);
-    currentPage = 1;
-    displayProducts();
-    updateProductCount();
-}
-
-function showError(msg) {
-    const c = document.getElementById('products-container');
-    if (c) c.innerHTML = `<div class='error-message'>${msg}</div>`;
-}
+// تهيئة الصفحة
+document.addEventListener('DOMContentLoaded', () => {
+    loadProducts();
+    setupSearch();
+});
