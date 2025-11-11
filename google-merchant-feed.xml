@@ -1,1 +1,69 @@
-{{FILE_CONTENT}}
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">
+<channel>
+<title>سوق مصر - منتجات أصلية بأفضل الأسعار</title>
+<link>https://sooq-masr.arabsad.com</link>
+<description>متجر إلكتروني متخصص في بيع المنتجات الأصلية بأسعار تنافسية</description>
+<item>
+<g:id>1</g:id>
+<g:title>جهاز ديناميك لإعادة تأهيل اليد ايسر</g:title>
+<g:description>منتج أصلي جهاز ديناميك لإعادة تأهيل اليد ايسر بأفضل سعر في مصر. شحن سريع لجميع المحافظات.</g:description>
+<g:link>https://sooq-masr.arabsad.com/products-pages/product-1-%D8%AC%D9%87%D8%A7%D8%B2-%D8%AF%D9%8A%D9%86%D8%A7%D9%85%D9%8A%D9%83-%D9%84%D8%A5%D8%B9%D8%A7%D8%AF%D8%A9-%D8%AA%D8%A3%D9%87%D9%8A%D9%84-%D8%A7%D9%84%D9%8A%D8%AF-%D8%A7%D9%8A%D8%B3%D8%B1-1.html</g:link>
+<g:image_link>https://media.taager.com/360x360/86971a57-a2e0-4a39-a3c3-75a7c2663117.jpg</g:image_link>
+<g:availability>in stock</g:availability>
+<g:price>6250.00 EGP</g:price>
+<g:brand>سوق مصر</g:brand>
+<g:condition>new</g:condition>
+<g:google_product_category>Health &amp; Beauty &gt; Health Care &gt; Medical Supplies &amp; Equipment</g:google_product_category>
+<g:product_type>Health &amp; Beauty &gt; Health Care &gt; Medical Supplies &amp; Equipment</g:product_type>
+<g:mpn>1</g:mpn>
+<g:identifier_exists>false</g:identifier_exists>
+<g:shipping>
+<g:country>EG</g:country>
+<g:service>Standard</g:service>
+<g:price>0 EGP</g:price>
+</g:shipping>
+</item>
+<item>
+<g:id>2</g:id>
+<g:title>CHIROGUN مسدس مساج وتدليك</g:title>
+<g:description>منتج أصلي CHIROGUN مسدس مساج وتدليك بأفضل سعر في مصر. شحن سريع لجميع المحافظات.</g:description>
+<g:link>https://sooq-masr.arabsad.com/products-pages/product-2-CHIROGUN-%D9%85%D8%B3%D8%AF%D8%B3-%D9%85%D8%B3%D8%A7%D8%AC-%D9%88%D8%AA%D8%AF%D9%84%D9%8A%D9%83-2.html</g:link>
+<g:image_link>https://media.taager.com/360x360/899de355-e2b2-486a-b219-34c55c6ea638.png</g:image_link>
+<g:availability>in stock</g:availability>
+<g:price>4150.00 EGP</g:price>
+<g:brand>سوق مصر</g:brand>
+<g:condition>new</g:condition>
+<g:google_product_category>Health &amp; Beauty &gt; Health Care &gt; Massage &amp; Relaxation</g:google_product_category>
+<g:product_type>Health &amp; Beauty &gt; Health Care &gt; Massage &amp; Relaxation</g:product_type>
+<g:mpn>2</g:mpn>
+<g:identifier_exists>false</g:identifier_exists>
+<g:shipping>
+<g:country>EG</g:country>
+<g:service>Standard</g:service>
+<g:price>0 EGP</g:price>
+</g:shipping>
+</item>
+<item>
+<g:id>3</g:id>
+<g:title>فرشاة مساج الشعر لتغذية الشعر بالزيوت</g:title>
+<g:description>منتج أصلي فرشاة مساج الشعر لتغذية الشعر بالزيوت بأفضل سعر في مصر. شحن سريع لجميع المحافظات.</g:description>
+<g:link>https://sooq-masr.arabsad.com/products-pages/product-3-%D9%81%D8%B1%D8%B4%D8%A7%D8%A9-%D9%85%D8%B3%D8%A7%D8%AC-%D8%A7%D9%84%D8%B4%D8%B9%D8%B1-%D9%84%D8%AA%D8%BA%D8%B0%D9%8A%D8%A9-%D8%A7%D9%84%D8%B4%D8%B9%D8%B1-%D8%A8%D8%A7%D9%84%D8%B2%D9%8A%D9%88%D8%AA-3.html</g:link>
+<g:image_link>https://media.taager.com/360x360/a1fb1d2c-1d6d-4ea1-a046-afaaaff36ae1.jpg</g:image_link>
+<g:availability>in stock</g:availability>
+<g:price>2200.00 EGP</g:price>
+<g:brand>سوق مصر</g:brand>
+<g:condition>new</g:condition>
+<g:google_product_category>Health &amp; Beauty &gt; Personal Care &gt; Hair Care</g:google_product_category>
+<g:product_type>Health &amp; Beauty &gt; Personal Care &gt; Hair Care</g:product_type>
+<g:mpn>3</g:mpn>
+<g:identifier_exists>false</g:identifier_exists>
+<g:shipping>
+<g:country>EG</g:country>
+<g:service>Standard</g:service>
+<g:price>0 EGP</g:price>
+</g:shipping>
+</item>
+<!-- ... باقي المنتجات بنفس التنسيق مع ترميز جميع الرموز -->
+</channel>
+</rss>
