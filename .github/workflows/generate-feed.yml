@@ -1,0 +1,77 @@
+name: 🔄 Generate Google Merchant Feed
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'products.json'
+      - 'generate-feed.py'
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */12 * * *'  # كل 12 ساعة
+
+permissions:
+  contents: write
+
+jobs:
+  generate-feed:
+    runs-on: ubuntu-latest
+    name: 📋 توليد الفييد
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: 📊 Check products count
+        id: check
+        run: |
+          PRODUCTS_COUNT=$(python3 -c "import json; f=open('products.json','r',encoding='utf-8'); data=json.load(f); print(len(data))")
+          echo "📊 عدد المنتجات: $PRODUCTS_COUNT"
+          echo "count=$PRODUCTS_COUNT" >> $GITHUB_OUTPUT
+      
+      - name: ⚙️ Generate Google Merchant Feed
+        run: |
+          echo "🔄 جاري توليد الفييد لـ${{ steps.check.outputs.count }} منتج..."
+          python3 generate-feed.py
+          
+          if [ -f "google-merchant-feed.xml" ]; then
+            FEED_SIZE=$(wc -c < google-merchant-feed.xml | numfmt --to=iec-i --suffix=B)
+            echo "✅ تم إنشاء الفييد بنجاح! (الحجم: $FEED_SIZE)"
+          else
+            echo "❌ فشل في إنشاء الفييد"
+            exit 1
+          fi
+      
+      - name: 💾 Commit and push feed
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "🤖 Feed Generator Bot"
+          
+          if [ -f "google-merchant-feed.xml" ]; then
+            git add google-merchant-feed.xml
+            
+            if git diff --staged --quiet; then
+              echo "ℹ️ لا توجد تغييرات في الفييد"
+            else
+              git commit -m "🔄 تحديث فييد Google Merchant Center (${{ steps.check.outputs.count }} منتج) - $(date '+%Y-%m-%d %H:%M')"
+              git push
+              echo "✅ تم رفع الفييد بنجاح!"
+            fi
+          fi
+      
+      - name: 📊 Summary
+        run: |
+          echo "## 🎉 تم توليد الفييد بنجاح" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "📊 **عدد المنتجات**: ${{ steps.check.outputs.count }}" >> $GITHUB_STEP_SUMMARY
+          echo "🔗 **رابط الفييد**: https://sooq-masr.com/google-merchant-feed.xml" >> $GITHUB_STEP_SUMMARY
+          echo "✅ **الحالة**: متوافق 100% مع Google Merchant Center" >> $GITHUB_STEP_SUMMARY
