@@ -5,253 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="سوق مصر - أفضل المنتجات بأسعار تنافسية وجودة عالية. توصيل سريع لجميع أنحاء مصر.">
     <title>سوق مصر - أفضل المنتجات بأسعار منافسة</title>
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="components-style.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛍️</text></svg>">
-    
+    <script src="components.js"></script>
     <style>
-        body { 
-            font-family: 'Cairo', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-        }
-        
-        /* أيقونة السلة العائمة */
-        .cart-icon {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.5);
-            z-index: 1000;
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-        
-        .cart-icon:hover {
-            transform: scale(1.15) rotate(5deg);
-            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.7);
-        }
-        
-        .cart-icon svg {
-            width: 30px;
-            height: 30px;
-        }
-        
-        #cart-count {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: #ff3b3b;
-            color: white;
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            font-weight: bold;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-        
-        /* فئات المنتجات الاحترافية */
-        .categories-wrapper {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 30px 0;
-            margin: 30px 0;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .categories-wrapper::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="rgba(255,255,255,0.05)"/></svg>');
-            opacity: 0.3;
-        }
-        
-        .categories {
-            display: flex;
-            gap: 15px;
-            overflow-x: auto;
-            padding: 15px 20px;
-            position: relative;
-            z-index: 1;
-            scrollbar-width: thin;
-            scrollbar-color: rgba(255,255,255,0.5) transparent;
-        }
-        
-        .categories::-webkit-scrollbar {
-            height: 8px;
-        }
-        
-        .categories::-webkit-scrollbar-track {
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-        }
-        
-        .categories::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,0.5);
-            border-radius: 10px;
-        }
-        
-        .category-btn {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            padding: 20px 25px;
-            background: rgba(255,255,255,0.15);
-            color: white;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 20px;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            font-family: 'Cairo', sans-serif;
-            font-weight: 700;
-            font-size: 0.95rem;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            min-width: 120px;
-        }
-        
-        .category-btn .icon {
-            font-size: 2rem;
-            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
-        }
-        
-        .category-btn:hover {
-            background: rgba(255,255,255,0.25);
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-            border-color: rgba(255,255,255,0.6);
-        }
-        
-        .category-btn.active {
-            background: white;
-            color: #667eea;
-            border-color: white;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            transform: translateY(-3px) scale(1.08);
-        }
-        
-        .category-btn.active .icon {
-            animation: bounce 0.6s;
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        /* عداد النتائج */
-        .results-count {
-            text-align: center;
-            padding: 20px;
-            margin: 25px 0;
-            background: white;
-            border-radius: 15px;
-            color: #2d3748;
-            font-weight: 600;
-            font-size: 1.1rem;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-        }
-        
-        .results-count strong {
-            color: #667eea;
-            font-size: 1.3rem;
-        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
-    <!-- أيقونة السلة العائمة -->
-    <a href="cart.html" class="cart-icon">
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-        </svg>
-        <span id="cart-count">0</span>
-    </a>
-    
     <div class="container">
-        <header>
-            <h1>🛍️ سوق مصر - أنفضل المنتجات بأسعار منافسة</h1>
-            <p style="text-align: center; color: #718096; margin-bottom: 30px; font-size: 1.1rem;">
-                اكتشف مجموعة واسعة من المنتجات عالية الجودة بأسعار لا تقاوم
-            </p>
-        </header>
-        
+        <header style="display:none;"></header> <!-- سيتم استبداله ديناميكياً -->
+        <p style="text-align: center; color: #718096; margin-bottom: 30px; font-size: 1.1rem;">
+            اكتشف مجموعة واسعة من المنتجات عالية الجودة بأسعار لا تقاوم
+        </p>
         <!-- شريط البحث -->
         <div class="search-container">
             <input 
                 type="text" 
-                id="search-input" 
+                id="search-input"
                 placeholder="🔍 ابحث عن منتجك المفضل... (مثال: جلد طبيعي، أحذية، حقائب)"
                 autocomplete="off"
             >
         </div>
-        
         <!-- فئات المنتجات الاحترافية -->
         <div class="categories-wrapper">
             <div class="categories" id="categories">
-                <button class="category-btn active" data-category="all">
-                    <span class="icon">🛍️</span>
-                    <span>الكل</span>
-                </button>
-                <button class="category-btn" data-category="Health & Beauty">
-                    <span class="icon">💄</span>
-                    <span>صحة وجمال</span>
-                </button>
-                <button class="category-btn" data-category="Home & Garden">
-                    <span class="icon">🏠</span>
-                    <span>منزل وحديقة</span>
-                </button>
-                <button class="category-btn" data-category="Apparel & Accessories">
-                    <span class="icon">👔</span>
-                    <span>ملابس وإكسسوارات</span>
-                </button>
-                <button class="category-btn" data-category="احذية">
-                    <span class="icon">👟</span>
-                    <span>أحذية</span>
-                </button>
-                <button class="category-btn" data-category="حقائب">
-                    <span class="icon">👜</span>
-                    <span>حقائب</span>
-                </button>
-                <button class="category-btn" data-category="Electronics">
-                    <span class="icon">📱</span>
-                    <span>إلكترونيات</span>
-                </button>
-                <button class="category-btn" data-category="جلد">
-                    <span class="icon">🎒</span>
-                    <span>منتجات جلدية</span>
-                </button>
+                <button class="category-btn active" data-category="all"><span class="icon">🛍️</span><span>الكل</span></button>
+                <button class="category-btn" data-category="Health & Beauty"><span class="icon">💄</span><span>صحة وجمال</span></button>
+                <button class="category-btn" data-category="Home & Garden"><span class="icon">🏠</span><span>منزل وحديقة</span></button>
+                <button class="category-btn" data-category="Apparel & Accessories"><span class="icon">👔</span><span>ملابس وإكسسوارات</span></button>
+                <button class="category-btn" data-category="احذية"><span class="icon">👟</span><span>أحذية</span></button>
+                <button class="category-btn" data-category="حقائب"><span class="icon">👜</span><span>حقائب</span></button>
+                <button class="category-btn" data-category="Electronics"><span class="icon">📱</span><span>إلكترونيات</span></button>
+                <button class="category-btn" data-category="جلد"><span class="icon">🎒</span><span>منتجات جلدية</span></button>
             </div>
         </div>
-        
         <!-- معلومات إضافية -->
         <div style="display: flex; justify-content: center; gap: 30px; margin: 30px 0; flex-wrap: wrap;">
             <div style="text-align: center; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); min-width: 150px;">
@@ -271,7 +63,6 @@
                 <div style="font-size: 0.95rem; color: #4a5568; font-weight: 600; margin-top: 10px;">عروض حصرية</div>
             </div>
         </div>
-        
         <!-- حاوية المنتجات -->
         <div id="products-container">
             <div style="text-align: center; padding: 60px 20px; grid-column: 1/-1;">
@@ -279,43 +70,21 @@
                 <p style="margin-top: 20px; color: #718096; font-size: 1.1rem;">جاري تحميل المنتجات...</p>
             </div>
         </div>
-        
-        <!-- الذيل -->
-        <footer style="margin-top: 60px; padding-top: 30px; border-top: 2px solid #e2e8f0; text-align: center; color: #718096;">
-            <p style="font-size: 1rem;">© 2025 سوق مصر - جميع الحقوق محفوظة</p>
-            <p style="margin-top: 10px; font-size: 0.9rem;">
-                للاستفسار: <a href="mailto:sherow1982@gmail.com" style="color: #667eea; text-decoration: none; font-weight: 600;">sherow1982@gmail.com</a>
-            </p>
-        </footer>
+        <div id="load-more-container" style="text-align:center; display:none; margin:40px 0;">
+            <button id="load-more-btn" class="btn btn--primary btn--lg">تحميل المزيد</button>
+        </div>
+        <footer style="display:none;"></footer> <!-- سيتم استبداله ديناميكياً -->
     </div>
-    
-    <!-- تحميل الملفات -->
     <script src="cart.js"></script>
     <script src="app.js"></script>
-    
-    <!-- أنيميشن التحميل -->
-    <style>
-        @keyframes spin { 
-            0% { transform: rotate(0deg); } 
-            100% { transform: rotate(360deg); } 
-        }
-    </style>
-    
-    <!-- تفعيل الفئات -->
     <script>
-        // إعداد الفئات بعد تحميل الصفحة
+        // تفعيل الفئات
         document.addEventListener('DOMContentLoaded', function() {
             const categoryButtons = document.querySelectorAll('.category-btn');
-            
             categoryButtons.forEach(btn => {
                 btn.addEventListener('click', function() {
-                    // إزالة الكلاس النشط من جميع الأزرار
                     categoryButtons.forEach(b => b.classList.remove('active'));
-                    
-                    // إضافة الكلاس النشط للزر المضغوط
                     this.classList.add('active');
-                    
-                    // استدعاء دالة الفلترة من app.js
                     const category = this.dataset.category;
                     if (typeof window.filterByCategory === 'function') {
                         window.filterByCategory(category);
