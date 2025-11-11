@@ -2,13 +2,13 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Sitemap للصفحات الثابتة -->
   <sitemap>
-    <loc>https://sherow1982.github.io/sooq-masr/sitemap-static.xml</loc>
+    <loc>https://sooq-masr.arabsad.com/sitemap-static.xml</loc>
     <lastmod>2025-11-11</lastmod>
   </sitemap>
   
   <!-- Sitemap للمنتجات -->
   <sitemap>
-    <loc>https://sherow1982.github.io/sooq-masr/sitemap-products.xml</loc>
+    <loc>https://sooq-masr.arabsad.com/sitemap-products.xml</loc>
     <lastmod>2025-11-11</lastmod>
   </sitemap>
 </sitemapindex>
