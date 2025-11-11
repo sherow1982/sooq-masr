@@ -1,14 +1,21 @@
-# Robots.txt for سوق مصر
+# robots.txt for sooq-masr
+# https://sherow1982.github.io/sooq-masr/
+
 User-agent: *
 Allow: /
 
-# Disallow admin and cart pages from indexing
-Disallow: /cart.html
-Disallow: /checkout.html
+# Sitemap
+Sitemap: https://sherow1982.github.io/sooq-masr/sitemap.xml
 
-# Allow all product pages
+# Crawl-delay
+Crawl-delay: 1
+
+# Specific rules
 Allow: /products-pages/
+Allow: /images/
+Allow: /css/
+Allow: /js/
 
-# Sitemap location
-Sitemap: https://sooq-masr.arabsad.com/sitemap.xml
-Sitemap: https://sooq-masr.arabsad.com/sitemap-products.xml
+# Disallow admin or private pages (if any)
+# Disallow: /admin/
+# Disallow: /private/
