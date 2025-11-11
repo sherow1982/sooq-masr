@@ -117,9 +117,29 @@ function matchesCategory(product, category) {
     
     const productCategory = (product.google_product_category || '').toLowerCase();
     const productType = (product.product_type || '').toLowerCase();
+    const productTitle = (product.title || '').toLowerCase();
     const categoryLower = category.toLowerCase();
     
-    return productCategory.includes(categoryLower) || productType.includes(categoryLower);
+    // خريطة الفئات - ربط أسماء الفئات بالكلمات المفتاحية
+    const categoryMapping = {
+        'health & beauty': ['health', 'beauty', 'صحة', 'جمال', 'cosmetics', 'makeup'],
+        'home & garden': ['home', 'garden', 'منزل', 'حديقة', 'furniture', 'decor'],
+        'apparel & accessories': ['apparel', 'accessories', 'ملابس', 'إكسسوارات', 'clothing', 'fashion'],
+        'احذية': ['shoes', 'احذية', 'حذاء', 'footwear', 'sneakers', 'boots'],
+        'حقائب': ['bag', 'حقيبة', 'حقائب', 'handbag', 'backpack', 'luggage'],
+        'electronics': ['electronic', 'إلكتروني', 'phone', 'computer', 'tech'],
+        'جلد': ['leather', 'جلد', 'جلدي', 'جلدية']
+    };
+    
+    // الحصول على الكلمات المفتاحية للفئة المطلوبة
+    const keywords = categoryMapping[categoryLower] || [categoryLower];
+    
+    // التحقق من وجود أي كلمة مفتاحية في بيانات المنتج
+    return keywords.some(keyword => 
+        productCategory.includes(keyword) || 
+        productType.includes(keyword) || 
+        productTitle.includes(keyword)
+    );
 }
 
 // ============================================
