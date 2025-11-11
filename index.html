@@ -13,15 +13,298 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛍️</text></svg>">
     <script src="components.js"></script>
     <style>
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        /* إضافات عصرية للصفحة الرئيسية */
+        @keyframes spin { 
+            0% { transform: rotate(0deg); } 
+            100% { transform: rotate(360deg); } 
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* فئات المنتجات */
+        .categories-wrapper {
+            margin: 2.5rem 0;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #667eea #f3f4f6;
+        }
+        
+        .categories-wrapper::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .categories-wrapper::-webkit-scrollbar-track {
+            background: #f3f4f6;
+            border-radius: 9999px;
+        }
+        
+        .categories-wrapper::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 9999px;
+        }
+        
+        .categories {
+            display: flex;
+            gap: 1rem;
+            padding: 0.5rem;
+            min-width: min-content;
+        }
+        
+        .category-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            padding: 0.875rem 1.5rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 9999px;
+            background: white;
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .category-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            opacity: 0;
+            transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .category-btn .icon,
+        .category-btn span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .category-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            border-color: transparent;
+        }
+        
+        .category-btn:hover::before {
+            opacity: 1;
+        }
+        
+        .category-btn:hover {
+            color: white;
+        }
+        
+        .category-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .category-btn .icon {
+            font-size: 1.25rem;
+        }
+        
+        /* بطاقات الميزات */
+        .features-grid {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2.5rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .feature-card {
+            text-align: center;
+            background: white;
+            padding: 2rem 1.5rem;
+            border-radius: 1.25rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            min-width: 160px;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            animation-fill-mode: both;
+        }
+        
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.2);
+            border-color: rgba(102, 126, 234, 0.2);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .feature-card:nth-child(2) .feature-icon { animation-delay: 0.5s; }
+        .feature-card:nth-child(3) .feature-icon { animation-delay: 1s; }
+        .feature-card:nth-child(4) .feature-icon { animation-delay: 1.5s; }
+        
+        .feature-text {
+            font-size: 1rem;
+            color: #4a5568;
+            font-weight: 600;
+            margin-top: 0.75rem;
+        }
+        
+        /* عنوان ترحيبي */
+        .welcome-text {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 2.5rem;
+            font-size: 1.125rem;
+            font-weight: 500;
+            animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            animation-delay: 0.2s;
+            animation-fill-mode: both;
+        }
+        
+        /* حالة التحميل */
+        .loading-container {
+            text-align: center;
+            padding: 4rem 1.25rem;
+            grid-column: 1/-1;
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            border: 6px solid #f3f4f6;
+            border-top: 6px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        .loading-text {
+            margin-top: 1.5rem;
+            color: #6b7280;
+            font-size: 1.125rem;
+            font-weight: 500;
+        }
+        
+        /* زر تحميل المزيد */
+        #load-more-container {
+            text-align: center;
+            margin: 3rem 0;
+            display: none;
+        }
+        
+        #load-more-btn {
+            padding: 1rem 3rem;
+            font-size: 1.125rem;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .features-grid {
+                gap: 1.25rem;
+            }
+            
+            .feature-card {
+                min-width: 140px;
+                padding: 1.5rem 1rem;
+            }
+            
+            .feature-icon {
+                font-size: 2.5rem;
+            }
+            
+            .feature-text {
+                font-size: 0.9375rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .categories {
+                gap: 0.75rem;
+            }
+            
+            .category-btn {
+                padding: 0.75rem 1.25rem;
+                font-size: 0.875rem;
+            }
+            
+            .category-btn .icon {
+                font-size: 1.125rem;
+            }
+            
+            .features-grid {
+                gap: 1rem;
+            }
+            
+            .feature-card {
+                min-width: 120px;
+                padding: 1.25rem 0.875rem;
+            }
+            
+            .feature-icon {
+                font-size: 2rem;
+            }
+            
+            .feature-text {
+                font-size: 0.875rem;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header style="display:none;"></header> <!-- سيتم استبداله ديناميكياً -->
-        <p style="text-align: center; color: #718096; margin-bottom: 30px; font-size: 1.1rem;">
+        
+        <p class="welcome-text">
             اكتشف مجموعة واسعة من المنتجات عالية الجودة بأسعار لا تقاوم
         </p>
+        
         <!-- شريط البحث -->
         <div class="search-container">
             <input 
@@ -31,50 +314,80 @@
                 autocomplete="off"
             >
         </div>
-        <!-- فئات المنتجات الاحترافية -->
+        
+        <!-- فئات المنتجات -->
         <div class="categories-wrapper">
             <div class="categories" id="categories">
-                <button class="category-btn active" data-category="all"><span class="icon">🛍️</span><span>الكل</span></button>
-                <button class="category-btn" data-category="Health & Beauty"><span class="icon">💄</span><span>صحة وجمال</span></button>
-                <button class="category-btn" data-category="Home & Garden"><span class="icon">🏠</span><span>منزل وحديقة</span></button>
-                <button class="category-btn" data-category="Apparel & Accessories"><span class="icon">👔</span><span>ملابس وإكسسوارات</span></button>
-                <button class="category-btn" data-category="احذية"><span class="icon">👟</span><span>أحذية</span></button>
-                <button class="category-btn" data-category="حقائب"><span class="icon">👜</span><span>حقائب</span></button>
-                <button class="category-btn" data-category="Electronics"><span class="icon">📱</span><span>إلكترونيات</span></button>
-                <button class="category-btn" data-category="جلد"><span class="icon">🎒</span><span>منتجات جلدية</span></button>
+                <button class="category-btn active" data-category="all">
+                    <span class="icon">🛍️</span>
+                    <span>الكل</span>
+                </button>
+                <button class="category-btn" data-category="Health & Beauty">
+                    <span class="icon">💄</span>
+                    <span>صحة وجمال</span>
+                </button>
+                <button class="category-btn" data-category="Home & Garden">
+                    <span class="icon">🏠</span>
+                    <span>منزل وحديقة</span>
+                </button>
+                <button class="category-btn" data-category="Apparel & Accessories">
+                    <span class="icon">👔</span>
+                    <span>ملابس وإكسسوارات</span>
+                </button>
+                <button class="category-btn" data-category="احذية">
+                    <span class="icon">👟</span>
+                    <span>أحذية</span>
+                </button>
+                <button class="category-btn" data-category="حقائب">
+                    <span class="icon">👜</span>
+                    <span>حقائب</span>
+                </button>
+                <button class="category-btn" data-category="Electronics">
+                    <span class="icon">📱</span>
+                    <span>إلكترونيات</span>
+                </button>
+                <button class="category-btn" data-category="جلد">
+                    <span class="icon">🎒</span>
+                    <span>منتجات جلدية</span>
+                </button>
             </div>
         </div>
-        <!-- معلومات إضافية -->
-        <div style="display: flex; justify-content: center; gap: 30px; margin: 30px 0; flex-wrap: wrap;">
-            <div style="text-align: center; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); min-width: 150px;">
-                <div style="font-size: 2.5rem;">🚚</div>
-                <div style="font-size: 0.95rem; color: #4a5568; font-weight: 600; margin-top: 10px;">توصيل سريع</div>
+        
+        <!-- بطاقات الميزات -->
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🚚</div>
+                <div class="feature-text">توصيل سريع</div>
             </div>
-            <div style="text-align: center; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); min-width: 150px;">
-                <div style="font-size: 2.5rem;">💳</div>
-                <div style="font-size: 0.95rem; color: #4a5568; font-weight: 600; margin-top: 10px;">دفع آمن</div>
+            <div class="feature-card">
+                <div class="feature-icon">💳</div>
+                <div class="feature-text">دفع آمن</div>
             </div>
-            <div style="text-align: center; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); min-width: 150px;">
-                <div style="font-size: 2.5rem;">✨</div>
-                <div style="font-size: 0.95rem; color: #4a5568; font-weight: 600; margin-top: 10px;">جودة مضمونة</div>
+            <div class="feature-card">
+                <div class="feature-icon">✨</div>
+                <div class="feature-text">جودة مضمونة</div>
             </div>
-            <div style="text-align: center; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); min-width: 150px;">
-                <div style="font-size: 2.5rem;">🎁</div>
-                <div style="font-size: 0.95rem; color: #4a5568; font-weight: 600; margin-top: 10px;">عروض حصرية</div>
+            <div class="feature-card">
+                <div class="feature-icon">🎁</div>
+                <div class="feature-text">عروض حصرية</div>
             </div>
         </div>
+        
         <!-- حاوية المنتجات -->
         <div id="products-container">
-            <div style="text-align: center; padding: 60px 20px; grid-column: 1/-1;">
-                <div style="display: inline-block; width: 50px; height: 50px; border: 5px solid #f3f3f3; border-top: 5px solid #667eea; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-                <p style="margin-top: 20px; color: #718096; font-size: 1.1rem;">جاري تحميل المنتجات...</p>
+            <div class="loading-container">
+                <div class="loading-spinner"></div>
+                <p class="loading-text">جاري تحميل المنتجات...</p>
             </div>
         </div>
-        <div id="load-more-container" style="text-align:center; display:none; margin:40px 0;">
+        
+        <div id="load-more-container">
             <button id="load-more-btn" class="btn btn--primary btn--lg">تحميل المزيد</button>
         </div>
+        
         <footer style="display:none;"></footer> <!-- سيتم استبداله ديناميكياً -->
     </div>
+    
     <script src="cart.js"></script>
     <script src="app.js"></script>
     <script>
