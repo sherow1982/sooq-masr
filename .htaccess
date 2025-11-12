@@ -35,6 +35,25 @@
   Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
 </IfModule>
 
+# URL Rewrite Rules
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Redirect missing product pages to homepage with 301
+  # This prevents 404 errors in Google Merchant Center
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} ^/products-pages/
+  RewriteRule ^products-pages/(.*)$ /index.html [L,R=301]
+
+  # Alternative: Redirect missing pages to all-products page
+  # RewriteCond %{REQUEST_FILENAME} !-f
+  # RewriteCond %{REQUEST_FILENAME} !-d
+  # RewriteCond %{REQUEST_URI} ^/products-pages/
+  # RewriteRule ^products-pages/(.*)$ /all-products.html [L,R=301]
+</IfModule>
+
 # Redirect HTTP to HTTPS (if SSL is available)
 # <IfModule mod_rewrite.c>
 #   RewriteEngine On
