@@ -6,16 +6,3 @@ Allow: /
 
 # Sitemap
 Sitemap: https://sherow1982.github.io/sooq-masr/sitemap.xml
-
-# Crawl-delay
-Crawl-delay: 1
-
-# Specific rules
-Allow: /products-pages/
-Allow: /images/
-Allow: /css/
-Allow: /js/
-
-# Disallow admin or private pages (if any)
-# Disallow: /admin/
-# Disallow: /private/
