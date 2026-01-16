@@ -72,5 +72,5 @@ jobs:
           echo "## 🎉 تم توليد الفييد بنجاح" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "📊 **عدد المنتجات**: ${{ steps.check.outputs.count }}" >> $GITHUB_STEP_SUMMARY
-          echo "🔗 **رابط الفييد**: https://sooq-masr.arabsad.com/google-merchant-feed.xml" >> $GITHUB_STEP_SUMMARY
+          echo "🔗 **رابط الفييد**: https://sherow1982.github.io/sooq-masr/google-merchant-feed.xml" >> $GITHUB_STEP_SUMMARY
           echo "✅ **الحالة**: متوافق 100% مع Google Merchant Center" >> $GITHUB_STEP_SUMMARY
